@@ -30,6 +30,8 @@ export const site = {
   companyNumber: "TBC",
   // TODO: registered office address once the company is registered.
   registeredAddress: "TBC",
+  // TODO: confirm where the company is registered (Companies House).
+  registeredIn: "England and Wales",
 
   // Town the business is based in. Used in copy and the JSON-LD.
   locality: "Blackpool",

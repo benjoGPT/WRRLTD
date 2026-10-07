@@ -1,0 +1,38 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+  padding-left: calc(var(--gutter) + env(safe-area-inset-left));
+  padding-right: calc(var(--gutter) + env(safe-area-inset-right));
+  background: rgb(255 255 255 / 0.96);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -4px 16px rgb(7 40 75 / 0.08);
+  transform: translateY(110%);
+  visibility: hidden;
+  transition:
+    transform 200ms ease,
+    visibility 0s linear 200ms;
+}
+
+.bar[data-visible="true"] {
+  transform: none;
+  visibility: visible;
+  transition: transform 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .bar[data-visible="true"] {
+    transition: none;
+  }
+}
+
+/* Tablets and up have the button in the header instead */
+@media (min-width: 768px) {
+  .bar {
+    display: none;
+  }
+}

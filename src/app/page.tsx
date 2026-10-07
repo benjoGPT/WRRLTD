@@ -4,6 +4,7 @@ import { Contact } from "@/components/contact/Contact";
 import { Faq } from "@/components/Faq";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
+import { StickyCvButton } from "@/components/StickyCvButton";
 import { Sectors } from "@/components/Sectors";
 
 /**
@@ -20,6 +21,7 @@ export default function Home() {
       <About />
       <Faq />
       <Contact />
+      <StickyCvButton />
     </main>
   );
 }
