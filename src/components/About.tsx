@@ -1,17 +1,27 @@
 import { MapPin } from "lucide-react";
 import { site } from "@/config/site";
+import { Photo } from "./Photo";
 import styles from "./About.module.css";
 
 /** About us, using the client's own copy (lightly tidied). */
 export function About() {
   return (
-    <section id="about" className="section on-dark" aria-labelledby="about-title">
+    <section id="about" className="section on-dark slant-top" aria-labelledby="about-title">
       <div className={`container ${styles.grid}`}>
         <div>
           <p className="eyebrow">About us</p>
           <h2 id="about-title" className="section-title">
             Recruitment that starts with understanding
           </h2>
+          <figure className={styles.figure}>
+            <div className={styles.photo}>
+              <Photo name="blackpool" sizes="(min-width: 1024px) 40vw, 100vw" />
+            </div>
+            <figcaption className={styles.caption}>
+              <MapPin size={16} aria-hidden="true" />
+              {site.locality}, where we&apos;re based
+            </figcaption>
+          </figure>
         </div>
 
         <div className={styles.copy}>

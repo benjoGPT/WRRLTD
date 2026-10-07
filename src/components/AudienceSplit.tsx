@@ -1,5 +1,7 @@
 import { ArrowRight, Check } from "lucide-react";
 import { cvLink, hireLink } from "@/lib/nav";
+import type { PhotoKey } from "@/lib/photos";
+import { Photo } from "./Photo";
 import styles from "./AudienceSplit.module.css";
 
 /**
@@ -19,6 +21,7 @@ const panels = [
     ],
     cta: "I'm hiring",
     href: hireLink,
+    photo: "officeTeam" as PhotoKey,
   },
   {
     id: "candidates",
@@ -33,6 +36,7 @@ const panels = [
     ],
     cta: "Send your CV",
     href: cvLink,
+    photo: "candidateChat" as PhotoKey,
   },
 ];
 
@@ -42,6 +46,10 @@ export function AudienceSplit() {
       <div className={`container ${styles.grid}`}>
         {panels.map((panel) => (
           <article key={panel.id} id={panel.id} className={styles.panel}>
+            <div className={styles.photo}>
+              <Photo name={panel.photo} sizes="(min-width: 768px) 50vw, 100vw" />
+            </div>
+            <div className={styles.body}>
             <p className="eyebrow">{panel.label}</p>
             <h2 className={styles.title}>{panel.title}</h2>
             <ul className={styles.points}>
@@ -56,6 +64,7 @@ export function AudienceSplit() {
               {panel.cta}
               <ArrowRight size={18} aria-hidden="true" />
             </a>
+            </div>
           </article>
         ))}
       </div>

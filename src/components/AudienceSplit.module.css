@@ -6,10 +6,40 @@
 .panel {
   display: flex;
   flex-direction: column;
-  padding: 28px 24px 32px;
   background: var(--white);
   border: 1px solid var(--line);
-  border-top: 4px solid var(--navy);
+  overflow: hidden;
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 40px -28px rgb(7 40 75 / 0.45);
+}
+
+/* Photo across the top with a slanted bottom edge */
+.photo {
+  position: relative;
+  height: 180px;
+  background: var(--navy);
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+}
+
+.photo img {
+  transition: transform 700ms ease;
+}
+
+.panel:hover .photo img {
+  transform: scale(1.05);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 24px 32px;
 }
 
 .title {
@@ -48,8 +78,12 @@
     gap: 24px;
   }
 
-  .panel {
-    padding: 36px 32px 40px;
+  .photo {
+    height: 220px;
+  }
+
+  .body {
+    padding: 24px 32px 40px;
   }
 
   .cta {
@@ -63,7 +97,18 @@
     gap: 32px;
   }
 
-  .panel {
-    padding: 48px 48px 52px;
+  .photo {
+    height: 280px;
+  }
+
+  .body {
+    padding: 28px 48px 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .photo img {
+    transition: none;
   }
 }

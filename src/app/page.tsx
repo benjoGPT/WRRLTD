@@ -5,6 +5,8 @@ import { Contact } from "@/components/contact/Contact";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { Hero } from "@/components/Hero";
+import { RouteFinder } from "@/components/RouteFinder";
+import { SectorMarquee } from "@/components/SectorMarquee";
 import { HowItWorks } from "@/components/HowItWorks";
 import { StickyCvButton } from "@/components/StickyCvButton";
 import { Sectors } from "@/components/Sectors";
@@ -22,8 +24,10 @@ export default function Home() {
     <main id="main">
       <JsonLd />
       <Hero />
+      <SectorMarquee />
       <AudienceSplit />
       <Sectors />
+      <RouteFinder />
       <HowItWorks />
       <About />
       <Faq />

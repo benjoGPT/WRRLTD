@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/config/site";
+import { photos } from "@/lib/photos";
 import styles from "@/components/Prose.module.css";
 
 export const metadata: Metadata = {
@@ -139,6 +140,16 @@ export default function PrivacyPage() {
           Office at <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk/make-a-complaint</a> or
           on 0303 123 1113.
         </p>
+
+        <h2>Photo credits</h2>
+        <p>Photos on this site are from Unsplash, used under the Unsplash License:</p>
+        <ul>
+          {Object.values(photos).map((p) => (
+            <li key={p.unsplashId}>
+              {p.label}: <a href={`https://unsplash.com/photos/${p.unsplashId}`}>{p.credit}</a>
+            </li>
+          ))}
+        </ul>
 
         <h2>Changes to this notice</h2>
         <p>We may update this notice from time to time. The latest version will always be on this page.</p>

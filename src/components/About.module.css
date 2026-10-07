@@ -3,6 +3,42 @@
   gap: 24px;
 }
 
+.figure {
+  position: relative;
+  margin: 28px 0 0;
+}
+
+/* Photo with the logo's clipped corner, and a pale offset block behind it */
+.photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--navy-mid);
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 82% 100%, 0 100%);
+}
+
+.figure::before {
+  content: "";
+  position: absolute;
+  inset: 16px -12px -12px 16px;
+  background: rgb(184 194 206 / 0.14);
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 82% 100%, 0 100%);
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--white);
+  color: var(--navy);
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
 .copy {
   display: grid;
   gap: 18px;
@@ -37,7 +73,11 @@
   .grid {
     grid-template-columns: 5fr 7fr;
     gap: 64px;
-    align-items: start;
+    align-items: center;
+  }
+
+  .figure {
+    margin-top: 36px;
   }
 
   .lead {

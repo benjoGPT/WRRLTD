@@ -73,6 +73,20 @@ is turned white with a CSS filter (`brightness(0) invert(1)`). To use a new
 logo, replace `brand/logo-original.jpg`, check the row numbers at the top of
 the script still match the artwork, and run it again.
 
+## Photos
+
+Photos are free Unsplash images listed in `src/lib/photos.ts` (file, alt text,
+Unsplash ID and photographer). Download them into `public/images` with:
+
+```bash
+python3 scripts/fetch-photos.py   # needs Pillow and access to unsplash.com
+```
+
+Until a photo is downloaded, the site shows a branded navy placeholder in its
+place, so the layout always looks finished. Photographers are credited on
+/privacy. Before launch, check each photo's Unsplash page still shows the free
+Unsplash License, and use real photos of the client's work if they have any.
+
 ## Environment variables
 
 Set these in `.env.local` locally, and in the hosting dashboard for the live site.
