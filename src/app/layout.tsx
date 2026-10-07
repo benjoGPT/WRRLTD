@@ -25,6 +25,12 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    siteName: site.name,
+    url: "/",
+  },
   // Keeps the whole site out of search results until launch.
   robots: site.isLive ? { index: true, follow: true } : { index: false, follow: false },
 };
