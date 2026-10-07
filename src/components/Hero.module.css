@@ -1,0 +1,82 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: 56px 64px;
+}
+
+/* Slanted panels on the right, behind the text. On phones they're faint and
+   mostly off-screen so the headline stays readable. */
+.shapes {
+  position: absolute;
+  top: 0;
+  right: -45%;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 600 / 700;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.inner {
+  position: relative; /* above the shapes */
+}
+
+.title {
+  font-size: clamp(2.375rem, 1.4rem + 4.6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  max-width: 14ch;
+}
+
+.lede {
+  margin-top: 20px;
+  max-width: 46ch;
+  font-size: 1.125rem;
+  color: var(--slate-on-navy);
+}
+
+/* Stacked, full-width buttons on phones: easy to hit with a thumb */
+.buttons {
+  display: grid;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-block: 96px 104px;
+  }
+
+  .shapes {
+    right: -30%;
+    opacity: 0.7;
+  }
+
+  .lede {
+    font-size: 1.25rem;
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-block: 128px 136px;
+  }
+
+  .shapes {
+    right: -6%;
+    opacity: 1;
+  }
+
+  .buttons .btn,
+  .buttons a {
+    min-width: 220px;
+  }
+}
+
