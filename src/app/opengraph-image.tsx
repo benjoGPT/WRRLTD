@@ -13,12 +13,12 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 // The site's heading font, so the image matches the website.
-const fontDir = join(process.cwd(), "node_modules/@fontsource/archivo/files");
+const fontDir = join(process.cwd(), "node_modules/@fontsource/sora/files");
 
 export default async function OpengraphImage() {
   const [semiBold, extraBold, logo] = await Promise.all([
-    readFile(join(fontDir, "archivo-latin-600-normal.woff")),
-    readFile(join(fontDir, "archivo-latin-800-normal.woff")),
+    readFile(join(fontDir, "sora-latin-600-normal.woff")),
+    readFile(join(fontDir, "sora-latin-800-normal.woff")),
     readFile(join(process.cwd(), "src/assets/logo-horizontal-white.png")),
   ]);
   const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
@@ -35,7 +35,7 @@ export default async function OpengraphImage() {
           padding: "72px 80px",
           background: "#07284b",
           color: "#ffffff",
-          fontFamily: "Archivo",
+          fontFamily: "Sora",
           position: "relative",
         }}
       >
@@ -61,8 +61,8 @@ export default async function OpengraphImage() {
     {
       ...size,
       fonts: [
-        { name: "Archivo", data: semiBold, weight: 600, style: "normal" },
-        { name: "Archivo", data: extraBold, weight: 800, style: "normal" },
+        { name: "Sora", data: semiBold, weight: 600, style: "normal" },
+        { name: "Sora", data: extraBold, weight: 800, style: "normal" },
       ],
     },
   );

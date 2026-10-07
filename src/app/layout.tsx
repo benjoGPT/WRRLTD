@@ -1,20 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Figtree, Sora } from "next/font/google";
 import { site, siteUrl } from "@/config/site";
 import { Footer } from "@/components/Footer";
+import { BackToTop } from "@/components/BackToTop";
 import { Header } from "@/components/Header";
+import { ScrollEffects } from "@/components/ScrollEffects";
 import "./globals.css";
 
 // Fonts are downloaded at build time and served from our own domain, so
 // there's no request to Google when someone visits the site.
-const archivo = Archivo({
-  variable: "--font-archivo",
+// Sora for headings: wide and geometric, like the logo's wordmark.
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   weight: ["600", "700", "800"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+// Figtree for body text: clean and easy to read at small sizes.
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
 });
 
@@ -43,7 +47,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-GB" className={`${archivo.variable} ${inter.variable}`}>
+    <html lang="en-GB" className={`${sora.variable} ${figtree.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content
@@ -51,6 +55,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         {children}
         <Footer />
+        <BackToTop />
+        <ScrollEffects />
       </body>
     </html>
   );
