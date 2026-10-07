@@ -1,0 +1,89 @@
+/* 1 column on phones, 2 on tablets, 3 on laptops, 4 on large screens */
+.grid {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: 16px;
+  row-gap: 4px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+/* Small clipped corner, a nod to the logo */
+.card::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, transparent 50%, var(--tint) 50%);
+}
+
+.icon {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.name {
+  font-size: 1.0625rem;
+  align-self: end;
+}
+
+.blurb {
+  font-size: 0.9375rem;
+  color: var(--slate-text);
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+}
+
+/* Larger screens: icon on top, text below */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+    padding: 28px;
+  }
+
+  .icon {
+    grid-row: auto;
+    margin-bottom: 12px;
+  }
+
+  .name {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
