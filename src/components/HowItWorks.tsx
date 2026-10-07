@@ -1,16 +1,21 @@
+"use client";
+
+import { useRef, useState, type KeyboardEvent } from "react";
+import { Building2, UserRound } from "lucide-react";
 import styles from "./HowItWorks.module.css";
 
 /**
- * Four steps for employers and four for candidates, side by side on larger
- * screens and stacked on phones.
+ * Four steps for employers and four for candidates, switched with tabs.
+ * Follows the standard accessible tabs pattern: arrow keys move between tabs.
  *
  * TODO: ask the client to confirm these steps match how they actually work.
  */
 
 const journeys = [
   {
-    id: "employer-steps",
-    title: "For employers",
+    id: "employers",
+    tab: "For employers",
+    icon: Building2,
     steps: [
       {
         title: "Tell us what you need",
@@ -31,8 +36,9 @@ const journeys = [
     ],
   },
   {
-    id: "candidate-steps",
-    title: "For candidates",
+    id: "candidates",
+    tab: "For candidates",
+    icon: UserRound,
     steps: [
       {
         title: "Send us your CV",
@@ -55,35 +61,67 @@ const journeys = [
 ];
 
 export function HowItWorks() {
+  const [active, setActive] = useState(0);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const next = (active + (e.key === "ArrowRight" ? 1 : -1) + journeys.length) % journeys.length;
+    setActive(next);
+    tabRefs.current[next]?.focus();
+  };
+
+  const journey = journeys[active];
+
   return (
     <section id="how-it-works" className="section" aria-labelledby="how-title">
       <div className="container">
-        <p className="eyebrow">How it works</p>
-        <h2 id="how-title" className="section-title">
-          A simple process, start to finish
-        </h2>
+        <div className={styles.head}>
+          <div>
+            <p className="eyebrow">How it works</p>
+            <h2 id="how-title" className="section-title">
+              A simple process, start to finish
+            </h2>
+          </div>
 
-        <div className={styles.columns}>
-          {journeys.map((journey) => (
-            <div key={journey.id} className={styles.journey}>
-              <h3 id={journey.id} className={styles.journeyTitle}>
-                {journey.title}
-              </h3>
-              <ol className={styles.steps} aria-labelledby={journey.id}>
-                {journey.steps.map((step, i) => (
-                  <li key={step.title} className={styles.step}>
-                    <span className={styles.number} aria-hidden="true">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h4 className={styles.stepTitle}>{step.title}</h4>
-                      <p className={styles.stepText}>{step.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ))}
+          <div className={styles.tabs} role="tablist" aria-label="Choose a process" onKeyDown={onKeyDown}>
+            {journeys.map((j, i) => (
+              <button
+                key={j.id}
+                ref={(el) => {
+                  tabRefs.current[i] = el;
+                }}
+                type="button"
+                role="tab"
+                id={`tab-${j.id}`}
+                aria-selected={active === i}
+                aria-controls={`panel-${j.id}`}
+                tabIndex={active === i ? 0 : -1}
+                className={styles.tab}
+                onClick={() => setActive(i)}
+              >
+                <j.icon size={18} aria-hidden="true" />
+                {j.tab}
+              </button>
+            ))}
+            {/* Sliding highlight behind the selected tab */}
+            <span className={styles.slider} style={{ transform: `translateX(${active * 100}%)` }} aria-hidden="true" />
+          </div>
+        </div>
+
+        <div role="tabpanel" id={`panel-${journey.id}`} aria-labelledby={`tab-${journey.id}`}>
+          {/* key makes the list re-render, replaying the staggered animation */}
+          <ol key={journey.id} className={styles.steps}>
+            {journey.steps.map((step, i) => (
+              <li key={step.title} className={styles.step} style={{ animationDelay: `${i * 80}ms` }}>
+                <span className={styles.number} aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className={styles.stepTitle}>{step.title}</h3>
+                <p className={styles.stepText}>{step.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
