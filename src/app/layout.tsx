@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Inter } from "next/font/google";
 import { site, siteUrl } from "@/config/site";
+import { Header } from "@/components/Header";
 import "./globals.css";
 
 // Fonts are downloaded at build time and served from our own domain, so
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+        <Header />
         {children}
       </body>
     </html>

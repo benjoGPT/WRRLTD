@@ -1,0 +1,44 @@
+.bar {
+  background: var(--navy-deep);
+  font-size: 0.875rem;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px; /* comfortable tap target */
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.full {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    justify-content: flex-end;
+    gap: 32px;
+  }
+
+  .short {
+    display: none;
+  }
+
+  .full {
+    display: inline;
+  }
+}

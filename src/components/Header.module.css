@@ -1,0 +1,110 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--header-h);
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  text-decoration: none;
+  flex: none;
+}
+
+/* Desktop links are hidden on phones and tablets (they're in the menu). */
+.nav {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* On phones the sticky bottom bar does this job, so hide it here.
+   (".actions .cv" beats the global ".btn" rule, which also sets display.) */
+.actions .cv {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .actions .cv {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logoLink {
+    height: 52px;
+  }
+
+  .nav {
+    display: block;
+    margin-left: auto;
+  }
+
+  .navList {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navLink {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    position: relative;
+  }
+
+  /* Angular underline that slides in on hover */
+  .navLink::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 6px;
+    height: 2px;
+    background: var(--navy);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 150ms ease;
+  }
+
+  .navLink:hover::after {
+    transform: scaleX(1);
+  }
+
+  .actions {
+    margin-left: 16px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navLink {
+    padding: 0 18px;
+  }
+
+  .navLink::after {
+    left: 18px;
+    right: 18px;
+  }
+}

@@ -1,0 +1,105 @@
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-right: -8px; /* lines the icon up with the page edge */
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+/* Full-screen menu. 100dvh fits the visible screen on phones, even when the
+   browser's address bar shows or hides. */
+.dialog {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  /* Keep content clear of notches and the home indicator */
+  padding: env(safe-area-inset-top) calc(var(--gutter) + env(safe-area-inset-right))
+    calc(24px + env(safe-area-inset-bottom)) calc(var(--gutter) + env(safe-area-inset-left));
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.dialog[open] {
+  display: flex;
+}
+
+/* Stop the page behind scrolling while the menu is open */
+:global(html:has(dialog[open])) {
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+  padding-top: 8px;
+}
+
+.logo {
+  display: flex;
+  height: 44px;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-right: -8px;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  border-bottom: 1px solid rgb(255 255 255 / 0.15);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 32px;
+  display: grid;
+  gap: 8px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--slate-on-navy);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+/* Desktop shows the full nav bar instead */
+@media (min-width: 1024px) {
+  .toggle {
+    display: none;
+  }
+}
