@@ -1,0 +1,86 @@
+"use client";
+
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import type { z } from "zod";
+import { checkCvFile, toFieldErrors, type FieldErrors } from "@/lib/validation";
+
+type Status = "idle" | "sending" | "error";
+
+/**
+ * Shared logic for both forms: check the fields, send them to /api/contact,
+ * then go to the thank-you page or show what went wrong.
+ */
+export function useContactForm(kind: "employer" | "candidate", schema: z.ZodType) {
+  const router = useRouter();
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [status, setStatus] = useState<Status>("idle");
+  const [serverMessage, setServerMessage] = useState("");
+  const startedRef = useRef<HTMLInputElement>(null);
+
+  // Record when the form appeared, for the "filled in too fast" spam check.
+  useEffect(() => {
+    if (startedRef.current) startedRef.current.value = String(Date.now());
+  }, []);
+
+  function focusFirstError(form: HTMLFormElement) {
+    // Wait a frame so React has drawn the error messages first.
+    requestAnimationFrame(() => {
+      form
+        .querySelector<HTMLElement>('[aria-invalid="true"], [data-invalid="true"]')
+        ?.focus();
+    });
+  }
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    // 1. Check in the browser first.
+    const result = schema.safeParse(Object.fromEntries(data));
+    const fieldErrors = result.success ? {} : toFieldErrors(result.error);
+    if (kind === "candidate") {
+      const cvError = checkCvFile(data.get("cv") as File | null);
+      if (cvError) fieldErrors.cv = cvError;
+    }
+    setErrors(fieldErrors);
+    if (Object.keys(fieldErrors).length > 0) {
+      setStatus("idle");
+      focusFirstError(form);
+      return;
+    }
+
+    // 2. Send to the server, which checks everything again.
+    setStatus("sending");
+    setServerMessage("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      const json = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        errors?: FieldErrors;
+        message?: string;
+      };
+
+      if (res.ok && json.ok) {
+        router.push(`/thank-you?from=${kind}`);
+        return;
+      }
+
+      if (json.errors) {
+        setErrors(json.errors);
+        focusFirstError(form);
+      }
+      setServerMessage(json.message ?? "");
+      setStatus("error");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  return { errors, status, serverMessage, onSubmit, startedRef };
+}
