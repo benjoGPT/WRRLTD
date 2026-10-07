@@ -12,15 +12,21 @@ import { sectorNames } from "./sectors";
 export const OTHER_SECTOR = "Other / not sure";
 export const sectorOptions = [...sectorNames, OTHER_SECTOR] as const;
 
-const name = z.string().trim().min(2, "Please enter your name.").max(100, "That name is too long.");
+// A text field that must be filled in, with the same message whether it's
+// empty or missing from the request altogether.
+const requiredText = (message: string) => z.string({ error: message }).trim().min(1, message);
+
+const name = requiredText("Please enter your name.")
+  .min(2, "Please enter your name.")
+  .max(100, "That name is too long.");
 const email = z
-  .string()
+  .string({ error: "Please enter your email address." })
   .trim()
   .min(1, "Please enter your email address.")
   .pipe(z.email("Please enter a valid email address, like name@example.com."));
 // Digits, spaces, brackets, dashes and an optional leading +. 10 to 15 digits.
 const phone = z
-  .string()
+  .string({ error: "Please enter your phone number." })
   .trim()
   .min(1, "Please enter your phone number.")
   .refine((v) => /^\+?[\d\s()-]+$/.test(v), "Please use numbers only, like 07700 900123.")
@@ -29,18 +35,18 @@ const phone = z
     return digits >= 10 && digits <= 15;
   }, "That phone number looks too short or too long.");
 const sector = z.enum(sectorOptions, { error: "Please choose a sector." });
-const message = z.string().trim().max(2000, "Please keep your message under 2,000 characters.");
+const tooLong = "Please keep your message under 2,000 characters.";
 
 export const employerSchema = z.object({
   name,
-  company: z.string().trim().min(1, "Please enter your company name.").max(120),
+  company: requiredText("Please enter your company name.").max(120, "That name is too long."),
   email,
   phone,
   sector,
   roleType: z.enum(["Permanent", "Temporary", "Both"], {
     error: "Please choose permanent, temporary or both.",
   }),
-  message: message.min(1, "Please tell us a little about the role."),
+  message: requiredText("Please tell us a little about the role.").max(2000, tooLong),
 });
 
 export const candidateSchema = z.object({
@@ -51,7 +57,7 @@ export const candidateSchema = z.object({
   roleType: z.enum(["Permanent", "Temporary", "Either"], {
     error: "Please choose permanent, temporary or either.",
   }),
-  message: message.optional(),
+  message: z.string().trim().max(2000, tooLong).optional(),
   consent: z.literal("yes", { error: "Please tick the box to agree before sending." }),
 });
 
