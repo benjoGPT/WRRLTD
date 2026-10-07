@@ -1,4 +1,8 @@
+import { About } from "@/components/About";
+import { AudienceSplit } from "@/components/AudienceSplit";
 import { Hero } from "@/components/Hero";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Sectors } from "@/components/Sectors";
 
 /**
  * The home page. Each section is its own component in src/components, in the
@@ -8,6 +12,10 @@ export default function Home() {
   return (
     <main id="main">
       <Hero />
+      <AudienceSplit />
+      <Sectors />
+      <HowItWorks />
+      <About />
     </main>
   );
 }
