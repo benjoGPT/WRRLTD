@@ -1,0 +1,72 @@
+.columns {
+  display: grid;
+  gap: 48px;
+  margin-top: 40px;
+}
+
+.journeyTitle {
+  font-size: 1.25rem;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--navy);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Number on the left, a thin line joining the steps */
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 23px;
+  top: 72px;
+  bottom: -24px;
+  width: 2px;
+  background: var(--line);
+}
+
+.number {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.stepTitle {
+  font-size: 1.0625rem;
+  margin-top: 2px;
+}
+
+.stepText {
+  margin-top: 4px;
+  color: var(--slate-text);
+}
+
+@media (min-width: 1024px) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    margin-top: 56px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .columns {
+    gap: 96px;
+  }
+}
