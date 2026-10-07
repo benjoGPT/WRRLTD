@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Building2, Mail, MapPin, Phone, UserRound } from "lucide-react";
 import { site } from "@/config/site";
+import { OPEN_FORM_EVENT, type OpenFormDetail } from "@/lib/openForm";
 import { CandidateForm } from "./CandidateForm";
 import { EmployerForm } from "./EmployerForm";
 import styles from "./Contact.module.css";
@@ -35,11 +36,24 @@ export function Contact() {
       const kind = hashToForm[href.slice(href.indexOf("#"))];
       if (kind) setActive(kind);
     };
+    // Opened from the route finder or a sector card, maybe with a sector chosen
+    const onOpenForm = (e: Event) => {
+      const { kind, sector } = (e as CustomEvent<OpenFormDetail>).detail;
+      setActive(kind);
+      if (sector) {
+        const select = document.querySelector<HTMLSelectElement>(
+          `[data-form="${kind}"] select[name="sector"]`,
+        );
+        if (select) select.value = sector;
+      }
+    };
     fromHash();
     window.addEventListener("hashchange", fromHash);
+    window.addEventListener(OPEN_FORM_EVENT, onOpenForm);
     document.addEventListener("click", onClick);
     return () => {
       window.removeEventListener("hashchange", fromHash);
+      window.removeEventListener(OPEN_FORM_EVENT, onOpenForm);
       document.removeEventListener("click", onClick);
     };
   }, []);
@@ -88,10 +102,10 @@ export function Contact() {
               {active === "candidate" ? "Send us your CV" : "Tell us about your vacancy"}
             </h3>
             {/* Both forms stay mounted so nothing typed is lost when switching */}
-            <div hidden={active !== "candidate"}>
+            <div hidden={active !== "candidate"} data-form="candidate">
               <CandidateForm />
             </div>
-            <div hidden={active !== "employer"}>
+            <div hidden={active !== "employer"} data-form="employer">
               <EmployerForm />
             </div>
           </div>
