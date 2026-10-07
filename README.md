@@ -28,6 +28,7 @@ Other commands:
 ## Where things live
 
 ```
+brand/                  Original logo and the script that makes the site's logo files
 src/
   config/site.ts        All placeholders and the launch switch (start here)
   lib/sectors.ts        The 12 sectors (cards, form dropdowns, footer links)
@@ -50,6 +51,27 @@ src/
 The layout is mobile first: plain CSS rules are for phones (375px), and
 `@media (min-width: …)` rules add the tablet (768px) and desktop (1024px,
 1280px) layouts.
+
+## Logo files
+
+The client's artwork is `brand/logo-original.jpg`. Every logo file the site uses
+is made from it by one script:
+
+```bash
+python3 brand/make-logos.py   # needs Pillow: pip install pillow
+```
+
+| File                                 | Used for                                     |
+| ------------------------------------ | -------------------------------------------- |
+| `public/logo.png`                    | Stacked logo: footer, JSON-LD                |
+| `public/logo-horizontal.png`         | Header and phone menu (mark beside the name) |
+| `src/assets/logo-horizontal-white.png` | The share image (opengraph-image.tsx)      |
+| `src/app/icon.png`, `apple-icon.png` | Favicon and home-screen icon (the WP mark)   |
+
+The script turns the white background transparent. On navy sections the logo
+is turned white with a CSS filter (`brightness(0) invert(1)`). To use a new
+logo, replace `brand/logo-original.jpg`, check the row numbers at the top of
+the script still match the artwork, and run it again.
 
 ## Environment variables
 
@@ -79,11 +101,8 @@ See `.env.example` for details.
 
 ### Brand assets
 
-- [ ] Add the logo as `public/logo.png`. The header, footer, menu and JSON-LD
-      switch to it automatically. Check it on the navy sections (it's turned white
-      with a CSS filter).
-- [ ] Replace `src/app/icon.tsx` with a crop of the WP mark saved as `src/app/icon.png`.
-- [ ] Add the logo to `src/app/opengraph-image.tsx` (the image shown when the link is shared).
+- [x] Logo added. If the client sends a new or higher-quality version (ideally
+      an SVG or a transparent PNG), see "Logo files" below.
 
 ### Copy to confirm with the client (search the code for `TODO`)
 

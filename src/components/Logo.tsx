@@ -1,53 +1,42 @@
-import fs from "node:fs";
-import path from "node:path";
 import Image from "next/image";
 import { site } from "@/config/site";
 import styles from "./Logo.module.css";
 
 /**
- * The logo. Uses /public/logo.png once it's been added; until then it shows a
- * simple text version so the layout can be built and tested.
+ * The logo, in two layouts made from the client's artwork by
+ * brand/make-logos.py:
  *
- * The real logo is dark artwork, so on navy sections pass `inverted` and a CSS
- * filter turns it white.
+ * - "horizontal": WP mark beside the name, for the header and menu
+ * - "stacked":    the original layout, mark above the name, for the footer
+ *
+ * The artwork is dark, so on navy backgrounds pass `inverted`, which turns it
+ * white with a CSS filter. Its height is set by whoever uses it (CSS on the
+ * parent); the width follows automatically.
  */
 
-// Checked once when the site is built (the pages are static).
-const hasLogoFile = fs.existsSync(path.join(process.cwd(), "public", "logo.png"));
-
-type LogoProps = {
-  inverted?: boolean;
-  className?: string;
-  priority?: boolean;
+const files = {
+  horizontal: { src: "/logo-horizontal.png", width: 1916, height: 227 },
+  stacked: { src: "/logo.png", width: 1305, height: 629 },
 };
 
-export function Logo({ inverted = false, className = "", priority = false }: LogoProps) {
-  const classes = [styles.logo, inverted ? styles.inverted : "", className].join(" ");
+type LogoProps = {
+  variant?: keyof typeof files;
+  inverted?: boolean;
+  /** Load straight away (for the header) instead of when scrolled into view. */
+  eager?: boolean;
+};
 
-  if (hasLogoFile) {
-    return (
-      <Image
-        src="/logo.png"
-        alt={site.name}
-        width={1536}
-        height={1024}
-        priority={priority}
-        className={classes}
-        sizes="200px"
-      />
-    );
-  }
-
-  // Placeholder: delete once logo.png is in /public (it switches automatically).
+export function Logo({ variant = "horizontal", inverted = false, eager = false }: LogoProps) {
+  const file = files[variant];
   return (
-    <span className={`${classes} ${styles.placeholder}`}>
-      <span className={styles.mark} aria-hidden="true">
-        WP
-      </span>
-      <span className={styles.words}>
-        Wright Point
-        <span className={styles.sub}>Recruitment</span>
-      </span>
-    </span>
+    <Image
+      src={file.src}
+      alt={site.name}
+      width={file.width}
+      height={file.height}
+      loading={eager ? "eager" : "lazy"}
+      sizes={variant === "horizontal" ? "(min-width: 1280px) 380px, 300px" : "220px"}
+      className={`${styles.logo} ${inverted ? styles.inverted : ""}`}
+    />
   );
 }

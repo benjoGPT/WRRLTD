@@ -21,7 +21,7 @@ export function Footer() {
       <div className={`container ${styles.grid}`}>
         <div className={styles.brand}>
           <Link href="/" className={styles.logo}>
-            <Logo inverted />
+            <Logo variant="stacked" inverted />
           </Link>
           <p className={styles.tagline}>{site.tagline}</p>
         </div>

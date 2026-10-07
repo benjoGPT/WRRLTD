@@ -1,4 +1,4 @@
-/* Height is set by whoever uses the logo; width follows the 3:2 artwork. */
+/* Height comes from the parent; width follows the artwork's shape. */
 .logo {
   display: block;
   height: 100%;
@@ -8,61 +8,4 @@
 /* Turns the dark logo white for navy backgrounds. */
 .inverted {
   filter: brightness(0) invert(1);
-}
-
-/* ---- Text placeholder (used until /public/logo.png exists) ---- */
-
-.placeholder {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--navy);
-  font-family: var(--font-heading);
-  line-height: 1;
-}
-
-.mark {
-  display: grid;
-  place-items: center;
-  height: 40px;
-  aspect-ratio: 1;
-  background: var(--navy);
-  color: var(--white);
-  font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-  clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%);
-}
-
-.words {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-weight: 800;
-  font-size: 1.0625rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-.sub {
-  font-weight: 600;
-  font-size: 0.6875rem;
-  letter-spacing: 0.24em;
-  color: var(--slate-text);
-}
-
-/* On navy the placeholder is drawn white directly rather than filtered. */
-.inverted.placeholder {
-  filter: none;
-  color: var(--white);
-}
-
-.inverted .mark {
-  background: var(--white);
-  color: var(--navy);
-}
-
-.inverted .sub {
-  color: var(--slate-on-navy);
 }

@@ -17,7 +17,7 @@ export function Header() {
       <header className={styles.header}>
         <div className={`container ${styles.inner}`}>
           <Link href="/" className={styles.logoLink}>
-            <Logo priority />
+            <Logo eager />
           </Link>
 
           <nav className={styles.nav} aria-label="Main">

@@ -1,5 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
 import { site, siteUrl } from "@/config/site";
 import { sectorNames } from "@/lib/sectors";
 
@@ -9,7 +7,6 @@ import { sectorNames } from "@/lib/sectors";
  * Street address and company number are left out until they're real.
  */
 export function JsonLd() {
-  const hasLogo = fs.existsSync(path.join(process.cwd(), "public", "logo.png"));
   const data = {
     "@context": "https://schema.org",
     "@type": "EmploymentAgency",
@@ -19,7 +16,7 @@ export function JsonLd() {
     description: site.description,
     telephone: site.phone,
     email: site.email,
-    ...(hasLogo && { logo: `${siteUrl}/logo.png` }),
+    logo: `${siteUrl}/logo.png`,
     address: {
       "@type": "PostalAddress",
       // TODO: add streetAddress and postalCode once the client has an address.

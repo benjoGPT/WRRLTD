@@ -17,9 +17,19 @@
 .logoLink {
   display: flex;
   align-items: center;
-  height: 44px;
-  text-decoration: none;
+  min-height: 44px; /* tap target, taller than the logo itself */
   flex: none;
+}
+
+/* Logo height at each screen size (the width follows) */
+.logoLink img {
+  height: 30px;
+}
+
+@media (min-width: 768px) {
+  .logoLink img {
+    height: 38px;
+  }
 }
 
 /* Desktop links are hidden on phones and tablets (they're in the menu). */
@@ -46,8 +56,9 @@
 }
 
 @media (min-width: 1024px) {
-  .logoLink {
-    height: 52px;
+  /* Smaller here so the logo, nav and button fit on one line */
+  .logoLink img {
+    height: 34px;
   }
 
   .nav {
@@ -67,7 +78,7 @@
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding: 0 14px;
+    padding: 0 10px;
     font-family: var(--font-heading);
     font-weight: 600;
     color: var(--navy);
@@ -79,8 +90,8 @@
   .navLink::after {
     content: "";
     position: absolute;
-    left: 14px;
-    right: 14px;
+    left: 10px;
+    right: 10px;
     bottom: 6px;
     height: 2px;
     background: var(--navy);
@@ -94,11 +105,20 @@
   }
 
   .actions {
-    margin-left: 16px;
+    margin-left: 12px;
+  }
+
+  .actions .cv {
+    white-space: nowrap;
+    padding-inline: 20px;
   }
 }
 
 @media (min-width: 1280px) {
+  .logoLink img {
+    height: 42px;
+  }
+
   .navLink {
     padding: 0 18px;
   }
