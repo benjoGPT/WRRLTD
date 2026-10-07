@@ -1,0 +1,69 @@
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px 32px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--navy);
+}
+
+.title {
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+}
+
+.points {
+  list-style: none;
+  margin: 20px 0 28px;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.points li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.tick {
+  margin-top: 3px;
+  color: var(--navy);
+}
+
+/* Full width on phones; pushed to the bottom so both buttons line up */
+.cta {
+  margin-top: auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .panel {
+    padding: 36px 32px 40px;
+  }
+
+  .cta {
+    width: auto;
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    gap: 32px;
+  }
+
+  .panel {
+    padding: 48px 48px 52px;
+  }
+}
