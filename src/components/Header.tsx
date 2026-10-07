@@ -16,7 +16,7 @@ export function Header() {
       <TopBar />
       <header className={styles.header}>
         <div className={`container ${styles.inner}`}>
-          <Link href="/" className={styles.logoLink} aria-label="Wright Point Recruitment, home">
+          <Link href="/" className={styles.logoLink}>
             <Logo priority />
           </Link>
 

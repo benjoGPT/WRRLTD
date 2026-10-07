@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import type { z } from "zod";
-import { checkCvFile, toFieldErrors, type FieldErrors } from "@/lib/validation";
+import { checkCvFile, type FieldErrors } from "@/lib/formRules";
 
 type Status = "idle" | "sending" | "error";
 
@@ -11,7 +10,7 @@ type Status = "idle" | "sending" | "error";
  * Shared logic for both forms: check the fields, send them to /api/contact,
  * then go to the thank-you page or show what went wrong.
  */
-export function useContactForm(kind: "employer" | "candidate", schema: z.ZodType) {
+export function useContactForm(kind: "employer" | "candidate") {
   const router = useRouter();
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -37,7 +36,10 @@ export function useContactForm(kind: "employer" | "candidate", schema: z.ZodType
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    // 1. Check in the browser first.
+    // 1. Check in the browser first. The rules are loaded now, not with the
+    //    page, so visitors who never use the form don't download them.
+    const { candidateSchema, employerSchema, toFieldErrors } = await import("@/lib/validation");
+    const schema = kind === "candidate" ? candidateSchema : employerSchema;
     const result = schema.safeParse(Object.fromEntries(data));
     const fieldErrors = result.success ? {} : toFieldErrors(result.error);
     if (kind === "candidate") {

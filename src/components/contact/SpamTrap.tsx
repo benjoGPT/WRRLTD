@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import { HONEYPOT_FIELD, STARTED_FIELD } from "@/lib/validation";
+import { HONEYPOT_FIELD, STARTED_FIELD } from "@/lib/formRules";
 import styles from "./Form.module.css";
 
 /**

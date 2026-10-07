@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { site } from "@/config/site";
-import { candidateSchema, cvAccept, sectorOptions } from "@/lib/validation";
+import { cvAccept, sectorOptions } from "@/lib/formRules";
 import { FormStatus } from "./FormStatus";
 import { Checkbox, FileField, RadioGroup, SelectField, TextArea, TextField } from "./Fields";
 import { SpamTrap } from "./SpamTrap";
@@ -11,10 +11,7 @@ import styles from "./Form.module.css";
 
 /** Form for people looking for work, with a CV upload. */
 export function CandidateForm() {
-  const { errors, status, serverMessage, onSubmit, startedRef } = useContactForm(
-    "candidate",
-    candidateSchema,
-  );
+  const { errors, status, serverMessage, onSubmit, startedRef } = useContactForm("candidate");
 
   return (
     <form

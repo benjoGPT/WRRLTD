@@ -1,6 +1,6 @@
 "use client";
 
-import { employerSchema, sectorOptions } from "@/lib/validation";
+import { sectorOptions } from "@/lib/formRules";
 import { FormStatus } from "./FormStatus";
 import { RadioGroup, SelectField, TextArea, TextField } from "./Fields";
 import { SpamTrap } from "./SpamTrap";
@@ -9,10 +9,7 @@ import styles from "./Form.module.css";
 
 /** Form for businesses looking to hire. */
 export function EmployerForm() {
-  const { errors, status, serverMessage, onSubmit, startedRef } = useContactForm(
-    "employer",
-    employerSchema,
-  );
+  const { errors, status, serverMessage, onSubmit, startedRef } = useContactForm("employer");
 
   return (
     <form

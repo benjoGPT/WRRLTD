@@ -20,7 +20,7 @@ export function Footer() {
     <footer className={`${styles.footer} on-dark`}>
       <div className={`container ${styles.grid}`}>
         <div className={styles.brand}>
-          <Link href="/" className={styles.logo} aria-label={`${site.name}, home`}>
+          <Link href="/" className={styles.logo}>
             <Logo inverted />
           </Link>
           <p className={styles.tagline}>{site.tagline}</p>
