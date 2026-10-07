@@ -1,5 +1,6 @@
 import { About } from "@/components/About";
 import { AudienceSplit } from "@/components/AudienceSplit";
+import { Faq } from "@/components/Faq";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Sectors } from "@/components/Sectors";
@@ -16,6 +17,7 @@ export default function Home() {
       <Sectors />
       <HowItWorks />
       <About />
+      <Faq />
     </main>
   );
 }

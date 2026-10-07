@@ -36,7 +36,7 @@ const journeys = [
     steps: [
       {
         title: "Send us your CV",
-        text: "Use the form below or email it to us. No CV? Get in touch and we'll help.",
+        text: "Upload it with the form below. No CV yet? Call or email us and we'll help.",
       },
       {
         title: "We have a chat",
