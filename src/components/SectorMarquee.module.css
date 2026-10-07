@@ -1,0 +1,61 @@
+.band {
+  overflow: hidden;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding-block: 18px;
+  /* Fade the ends */
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 60s linear infinite;
+}
+
+.band:hover .track {
+  animation-play-state: paused;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding-right: 24px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.slash {
+  color: var(--slate);
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+@keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .band {
+    padding-block: 24px;
+  }
+
+  .item {
+    font-size: 1.25rem;
+    gap: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* No movement for people who prefer less motion: show a static strip */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
