@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { flushSync } from "react-dom";
 import { useRouter } from "next/navigation";
 import { checkCvFile, type FieldErrors } from "@/lib/formRules";
 
@@ -22,13 +23,11 @@ export function useContactForm(kind: "employer" | "candidate") {
     if (startedRef.current) startedRef.current.value = String(Date.now());
   }, []);
 
-  function focusFirstError(form: HTMLFormElement) {
-    // Wait a frame so React has drawn the error messages first.
-    requestAnimationFrame(() => {
-      form
-        .querySelector<HTMLElement>('[aria-invalid="true"], [data-invalid="true"]')
-        ?.focus();
-    });
+  // Shows the errors straight away (flushSync), then moves keyboard focus to
+  // the first field that needs fixing.
+  function showErrors(form: HTMLFormElement, fieldErrors: FieldErrors) {
+    flushSync(() => setErrors(fieldErrors));
+    form.querySelector<HTMLElement>('[aria-invalid="true"], [data-invalid="true"]')?.focus();
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -46,12 +45,12 @@ export function useContactForm(kind: "employer" | "candidate") {
       const cvError = checkCvFile(data.get("cv") as File | null);
       if (cvError) fieldErrors.cv = cvError;
     }
-    setErrors(fieldErrors);
     if (Object.keys(fieldErrors).length > 0) {
       setStatus("idle");
-      focusFirstError(form);
+      showErrors(form, fieldErrors);
       return;
     }
+    setErrors({});
 
     // 2. Send to the server, which checks everything again.
     setStatus("sending");
@@ -73,10 +72,7 @@ export function useContactForm(kind: "employer" | "candidate") {
         return;
       }
 
-      if (json.errors) {
-        setErrors(json.errors);
-        focusFirstError(form);
-      }
+      if (json.errors) showErrors(form, json.errors);
       setServerMessage(json.message ?? "");
       setStatus("error");
     } catch {
