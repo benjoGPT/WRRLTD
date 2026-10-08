@@ -3,8 +3,9 @@
 Marketing site for Wright Point Recruitment, a recruitment consultancy based in
 Blackpool placing permanent and temporary staff.
 
-Built with Next.js (App Router, TypeScript) and plain CSS Modules. Forms email the
-client through [Resend](https://resend.com). No database, no CMS.
+Built with Next.js (App Router, TypeScript) and plain CSS Modules, hosted on
+Cloudflare Workers. Forms email the client through [Resend](https://resend.com).
+No database, no CMS.
 
 ## Run it locally
 
@@ -24,6 +25,8 @@ Other commands:
 | `npm run build` | Builds the production site (run before pushing) |
 | `npm run start` | Serves the production build locally            |
 | `npm run lint`  | Checks the code for common mistakes            |
+| `npm run preview` | Builds for Cloudflare and runs it locally (closest to live) |
+| `npm run deploy`  | Builds for Cloudflare and deploys from your machine |
 
 ## Where things live
 
@@ -31,7 +34,6 @@ Other commands:
 brand/                  Original logo and the script that makes the site's logo files
 src/
   config/site.ts        All placeholders and the launch switch (start here)
-  lib/sectors.ts        The 12 sectors (cards, form dropdowns, footer links)
   lib/nav.ts            Navigation links
   lib/formRules.ts      Form settings: CV size/types, spam-trap field names
   lib/validation.ts     Form rules (zod), used in the browser and on the server
@@ -40,9 +42,14 @@ src/
   lib/faqs.ts           FAQ questions and answers (also feed Google's FAQ data)
   lib/journeys.ts       The employer and candidate steps
   lib/schema.ts         Structured data for search engines
+  lib/jobs.ts           Vacancies for the jobs board (see "Adding a job")
+  lib/guides.ts         The guides (articles)
+  lib/team.ts           The founders shown on Home and About
   app/
     layout.tsx          Fonts, header, footer, cookie banner
     page.tsx            Home: overview linking to the pages below
+    jobs/               Jobs board, plus one page per job with an apply form
+    guides/             Guides list, plus one page per guide
     employers/          For employers, with the vacancy form (#enquire)
     candidates/         For candidates, with the CV form (#apply)
     sectors/            All sectors, plus one page per sector (sectors/[slug])
@@ -117,8 +124,9 @@ that fails. Before launch, download them so the site serves its own copies
 
 ```bash
 python3 scripts/fetch-photos.py   # needs Pillow and access to unsplash.com
-``` Photographers are credited on
-/privacy. Before launch, check each photo's Unsplash page still shows the free
+```
+
+Photographers are credited on /privacy. Before launch, check each photo's Unsplash page still shows the free
 Unsplash License, and use real photos of the client's work if they have any.
 
 ## Social media images
@@ -127,10 +135,42 @@ Unsplash License, and use real photos of the client's work if they have any.
 (`profile-navy.png`, `profile-white.png`, both safe for circular crops) and a
 `cover-1584x396.png` banner for LinkedIn.
 
+## Hosting on Cloudflare
+
+The site runs as a Cloudflare Worker called `wrrltd`, built with the
+[OpenNext adapter](https://opennext.js.org/cloudflare). Pushing to `main`
+rebuilds and deploys it.
+
+Files involved:
+
+- `wrangler.jsonc`: the Worker's settings. Its `name` must match the Worker in
+  the dashboard.
+- `open-next.config.ts`: adapter settings. Every page is built ahead of time,
+  so no R2 or KV storage is needed.
+- `patches/@opennextjs+cloudflare+*.patch`: a one-line fix so the adapter
+  bundles a file Next 16.4 added (`preview-props.json`). Applied automatically
+  after `npm install`. Remove it once a newer adapter release includes the fix
+  (a build that works without it means it's no longer needed).
+
+Dashboard settings (Workers & Pages → wrrltd → Settings → Build):
+
+| Setting         | Value                              |
+| --------------- | ---------------------------------- |
+| Build command   | `npx opennextjs-cloudflare build`  |
+| Deploy command  | `npx opennextjs-cloudflare deploy` |
+| Root directory  | `/`                                |
+| Production branch | `main`                           |
+
+Two settings in `next.config.ts` matter here: Cache Components stays off (it
+needs timer behaviour Workers doesn't have), and the share images load their
+fonts from `src/lib/og-assets.ts` rather than from disk. Re-make that file with
+`python3 scripts/make-og-assets.py` if the logo changes.
+
 ## Environment variables
 
-Set these in `.env.local` locally, and in the hosting dashboard for the live site.
-See `.env.example` for details.
+Set these in `.env.local` locally, and in Cloudflare for the live site
+(Workers & Pages → wrrltd → Settings → Variables and Secrets; add
+`RESEND_API_KEY` as a **Secret**). See `.env.example` for details.
 
 | Variable             | Needed | What it is                                              |
 | -------------------- | ------ | ------------------------------------------------------- |
@@ -205,7 +245,8 @@ Pages: `/privacy`, `/cookies`, `/terms`, `/complaints`, `/equal-opportunities`
 
 ### Final checks
 
-- [ ] Connect the domain in the hosting dashboard.
+- [ ] Connect the domain in Cloudflare (Workers & Pages → wrrltd → Settings →
+      Domains & Routes). Easiest if the domain's DNS is on Cloudflare too.
 - [ ] Set `isLive` to `true`, deploy, then check `/robots.txt` lists the sitemap and
       the page source no longer has `noindex`.
 - [ ] Submit the sitemap in Google Search Console.

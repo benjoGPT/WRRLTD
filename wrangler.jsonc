@@ -1,0 +1,19 @@
+// Cloudflare Workers settings. The name must match the Worker in the
+// Cloudflare dashboard (Workers & Pages → wrrltd).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wrrltd",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // The built site's files (pages, images, CSS) are served from here
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // Lets the site call itself (OpenNext needs this for caching)
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "wrrltd" }],
+  // Resizes photos for each screen size (Cloudflare Images, free allowance)
+  "images": { "binding": "IMAGES" },
+  "observability": { "enabled": true }
+}
