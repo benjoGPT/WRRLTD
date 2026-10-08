@@ -9,6 +9,7 @@ import { RouteFinder } from "@/components/RouteFinder";
 import { SectorMarquee } from "@/components/SectorMarquee";
 import { HowItWorks } from "@/components/HowItWorks";
 import { StickyCvButton } from "@/components/StickyCvButton";
+import { Standards } from "@/components/Standards";
 import { Sectors } from "@/components/Sectors";
 
 /**
@@ -26,6 +27,7 @@ export default function Home() {
       <Hero />
       <SectorMarquee />
       <AudienceSplit />
+      <Standards />
       <Sectors />
       <RouteFinder />
       <HowItWorks />

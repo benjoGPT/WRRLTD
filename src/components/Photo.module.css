@@ -2,21 +2,36 @@
   object-fit: cover;
 }
 
-/* Branded stand-in: navy with the logo's diagonal stripes */
+/* Branded stand-in: navy with the logo's diagonal stripes and a large line icon */
 .placeholder {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 8px;
-  color: rgb(255 255 255 / 0.75);
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(115deg, transparent 0 26px, rgb(255 255 255 / 0.045) 26px 52px),
+    radial-gradient(120% 90% at 85% 100%, #0f4478, transparent 60%),
+    linear-gradient(135deg, #0b3866, #07284b 65%);
+}
+
+.icon {
+  position: absolute;
+  right: -6%;
+  bottom: -10%;
+  width: 70%;
+  max-width: 260px;
+  height: auto;
+  aspect-ratio: 1;
+  color: rgb(255 255 255 / 0.16);
+}
+
+.label {
+  position: absolute;
+  left: 20px;
+  bottom: 16px;
+  color: rgb(255 255 255 / 0.85);
   font-family: var(--font-heading);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  background:
-    repeating-linear-gradient(115deg, transparent 0 22px, rgb(255 255 255 / 0.05) 22px 44px),
-    linear-gradient(135deg, #0f4478, #07284b 70%);
 }

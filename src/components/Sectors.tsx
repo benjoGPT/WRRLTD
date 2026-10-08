@@ -18,7 +18,7 @@ export function Sectors() {
   const shown = sectors.filter((s) => filter === "All" || s.group === filter);
 
   return (
-    <section id="sectors" className="section section--tint" aria-labelledby="sectors-title">
+    <section id="sectors" className="section" aria-labelledby="sectors-title">
       <div className="container">
         <div className={styles.head}>
           <div>

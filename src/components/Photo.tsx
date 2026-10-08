@@ -1,9 +1,19 @@
 import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
-import { Camera } from "lucide-react";
+import { Building2, ChefHat, HardHat, MapPin, UserRound, Warehouse, type LucideIcon } from "lucide-react";
 import { photos, type PhotoKey } from "@/lib/photos";
 import styles from "./Photo.module.css";
+
+// Line icon shown on each photo's placeholder
+const placeholderIcons: Record<PhotoKey, LucideIcon> = {
+  construction: HardHat,
+  kitchen: ChefHat,
+  warehouse: Warehouse,
+  officeTeam: Building2,
+  candidateChat: UserRound,
+  blackpool: MapPin,
+};
 
 /**
  * A photo from src/lib/photos.ts that fills its parent box (the parent sets
@@ -15,7 +25,7 @@ export function Photo({
   sizes,
   eager = false,
   className = "",
-  showLabel = true,
+  showLabel = false,
 }: {
   name: PhotoKey;
   sizes: string;
@@ -40,11 +50,12 @@ export function Photo({
     );
   }
 
-  // Placeholder until the photo is downloaded (see scripts/fetch-photos.py)
+  // Branded stand-in until the photo is downloaded (see scripts/fetch-photos.py)
+  const Icon = placeholderIcons[name];
   return (
     <div className={`${styles.placeholder} ${className}`} role="img" aria-label={photo.alt}>
-      <Camera size={28} strokeWidth={1.5} aria-hidden="true" />
-      {showLabel && <span>{photo.label}</span>}
+      <Icon className={styles.icon} strokeWidth={1} aria-hidden="true" />
+      {showLabel && <span className={styles.label}>{photo.label}</span>}
     </div>
   );
 }
