@@ -60,6 +60,31 @@ a.contact:hover {
   text-underline-offset: 3px;
 }
 
+.policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+
+.policies a,
+.cookieButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--white);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
 .legal {
   display: grid;
   gap: 8px;
@@ -106,7 +131,32 @@ a.contact:hover {
     columns: 4;
   }
 
-  .legal {
+  .policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+
+.policies a,
+.cookieButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--white);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.legal {
     margin-top: 64px;
   }
 }

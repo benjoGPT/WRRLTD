@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/config/site";
+import { legalPages } from "@/lib/legal";
 import { sectors } from "@/lib/sectors";
+import { CookieSettingsButton } from "./cookies/CookieSettingsButton";
 import { Logo } from "./Logo";
 import styles from "./Footer.module.css";
 
@@ -71,16 +73,21 @@ export function Footer() {
                 </a>
               </li>
             ))}
-            <li>
-              <Link href="/privacy" className={styles.link}>
-                Privacy notice
-              </Link>
-            </li>
           </ul>
         </div>
       </div>
 
       <div className={`container ${styles.legal}`}>
+        <ul className={styles.policies}>
+          {legalPages.map((p) => (
+            <li key={p.href}>
+              <Link href={p.href}>{p.label}</Link>
+            </li>
+          ))}
+          <li>
+            <CookieSettingsButton className={styles.cookieButton} />
+          </li>
+        </ul>
         <p>
           {site.name} acts as an employment agency for permanent roles and an employment business
           for temporary roles.

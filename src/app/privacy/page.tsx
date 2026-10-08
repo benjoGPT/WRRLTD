@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { LegalPage } from "@/components/LegalPage";
 import { site } from "@/config/site";
 import { photos } from "@/lib/photos";
-import styles from "@/components/Prose.module.css";
 
 export const metadata: Metadata = {
   title: "Privacy notice",
@@ -10,150 +11,212 @@ export const metadata: Metadata = {
 };
 
 /**
- * Privacy notice.
+ * Privacy notice, written for a UK recruitment business under the UK GDPR,
+ * the Data Protection Act 2018 and the Data (Use and Access) Act 2025.
  *
- * TODO: this is a starting draft under UK GDPR. Have it checked by someone
- * qualified before launch, and fill in every "TBC". Details that depend on
- * the client are marked TODO below.
+ * TODO before launch:
+ * - fill in every "TBC" (company details, ICO number, providers, retention)
+ * - confirm the lawful bases and retention periods with the client
+ * - have the whole notice checked by someone qualified. This is a draft,
+ *   not legal advice.
  */
 export default function PrivacyPage() {
+  const email = <a href={`mailto:${site.email}`}>{site.email}</a>;
+
   return (
-    <main id="main" className={`container ${styles.page}`}>
-      <article className={styles.prose}>
-        <h1>Privacy notice</h1>
-        {/* TODO: set the date this notice is finalised. */}
-        <p className={styles.meta}>Last updated: TBC</p>
-
+    <LegalPage
+      title="Privacy notice"
+      path="/privacy"
+      intro={
         <p>
-          This notice explains how {site.legalName} (&quot;we&quot;, &quot;us&quot;) collects,
-          uses and looks after your personal information when you use this website or contact us.
+          This notice explains what personal information we collect, why we need it, who we share it
+          with and the rights you have. It applies to candidates, the businesses we work with and
+          anyone who uses this website.
         </p>
+      }
+    >
+      <h2>Who we are</h2>
+      <p>
+        {site.legalName} (&quot;we&quot;, &quot;us&quot;) is a recruitment business. We act as an
+        employment agency when we introduce people for permanent jobs, and as an employment business
+        when we supply temporary workers. For the information described here, we are the data
+        controller.
+      </p>
+      <p>
+        Registered in {site.registeredIn}, company number {site.companyNumber}. Registered office:{" "}
+        {site.registeredAddress}. Information Commissioner&apos;s Office (ICO) registration number:
+        TBC.
+      </p>
+      <p>
+        For anything about your data, email {email} or call{" "}
+        <a href={site.phoneHref}>{site.phone}</a>.
+      </p>
 
-        <h2>Who we are</h2>
-        <p>
-          {site.legalName} is the data controller for the information described here. We are
-          registered in {site.registeredIn}, company number {site.companyNumber}. Our registered
-          office is {site.registeredAddress}.
-        </p>
-        {/* TODO: add the ICO registration number once registered (most recruiters must pay the data protection fee). */}
-        <p>Information Commissioner&apos;s Office (ICO) registration number: TBC.</p>
-        <p>
-          For anything about your data, email <a href={`mailto:${site.email}`}>{site.email}</a> or
-          call <a href={site.phoneHref}>{site.phone}</a>.
-        </p>
+      <h2>What we collect</h2>
+      <h3>If you&apos;re looking for work</h3>
+      <ul>
+        <li>your name, email address, phone number and where you live</li>
+        <li>your CV and what&apos;s in it: work history, skills, qualifications and training</li>
+        <li>the work you want: sectors, hours, pay, and how far you can travel</li>
+        <li>notes from our conversations with you, and references from people you name</li>
+        <li>
+          before we place you: proof of identity and right to work in the UK, and any licences or
+          cards the job needs (for example a driving licence or CSCS card)
+        </li>
+        <li>
+          if you work for us on a temporary basis: your National Insurance number, bank details,
+          timesheets and pay records
+        </li>
+      </ul>
+      <h3>If you&apos;re an employer</h3>
+      <ul>
+        <li>the names, job titles and contact details of the people we deal with</li>
+        <li>details of your vacancies and any feedback on candidates</li>
+      </ul>
+      <h3>If you use this website</h3>
+      <ul>
+        <li>anything you send us through our forms</li>
+        <li>
+          cookies, but only the ones you agree to. See our{" "}
+          <Link href="/cookies">cookie policy</Link>.
+        </li>
+      </ul>
 
-        <h2>What we collect</h2>
-        <p>When you use our forms or contact us, we may collect:</p>
-        <ul>
-          <li>your name, email address and phone number</li>
-          <li>your company name, if you&apos;re an employer</li>
-          <li>the sector and type of work (permanent or temporary) you&apos;re interested in</li>
-          <li>anything you tell us in your message</li>
-          <li>
-            your CV and the information in it, such as your work history, qualifications and skills
+      <h2>Where we get it from</h2>
+      <p>
+        Mostly from you. We may also find your details on job sites and social media where
+        you&apos;ve made your CV or profile available to recruiters, or when you apply for one of our
+        adverts there. We also receive information from referees, previous employers and the
+        businesses we work with. If we get your details from somewhere other than you, we&apos;ll
+        tell you within a month and point you to this notice.
+      </p>
+
+      <h2>How we use it, and our lawful basis</h2>
+      <p>The law requires us to have a valid reason (a &quot;lawful basis&quot;) for each use:</p>
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>What we do</th>
+              <th>Lawful basis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Find suitable work for you and talk to you about it</td>
+              <td>Legitimate interests, and steps you&apos;ve asked us to take before a contract</td>
+            </tr>
+            <tr>
+              <td>Send your CV or details to an employer</td>
+              <td>Only after we&apos;ve asked you about that specific job</td>
+            </tr>
+            <tr>
+              <td>Check identity, right to work, references and qualifications</td>
+              <td>Legal obligation (immigration law and the rules for recruitment businesses)</td>
+            </tr>
+            <tr>
+              <td>Pay temporary workers and keep tax and payroll records</td>
+              <td>Contract and legal obligation</td>
+            </tr>
+            <tr>
+              <td>Understand an employer&apos;s vacancy and introduce candidates</td>
+              <td>Legitimate interests and contract</td>
+            </tr>
+            <tr>
+              <td>Email you about new jobs (job alerts)</td>
+              <td>Your consent, which you can withdraw at any time</td>
+            </tr>
+            <tr>
+              <td>Answer questions and complaints</td>
+              <td>Legitimate interests and legal obligation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>More sensitive information</h3>
+      <p>
+        Please don&apos;t include details in your CV that we don&apos;t need, such as health,
+        religion, ethnicity or sexual orientation. If you tell us about a health condition so we can
+        make adjustments for you, we use it only for that. We only ask about criminal records where a
+        role legally requires it, and we&apos;ll tell you first.
+      </p>
+      <p>We don&apos;t make decisions about you using only automated systems.</p>
+
+      <h2>Who we share it with</h2>
+      <ul>
+        <li>employers, but only for jobs you&apos;ve agreed we can put you forward for</li>
+        <li>your referees, when we ask for a reference</li>
+        <li>payroll or umbrella companies that pay temporary workers, if this applies to you</li>
+        <li>HMRC, the Home Office and other authorities, where the law requires it</li>
+        {/* TODO: name the actual providers once chosen. */}
+        <li>
+          the companies that run our systems: website hosting (TBC), our email service (TBC), and
+          Resend, which delivers messages sent through our website forms
+        </li>
+      </ul>
+      <p>We never sell your information.</p>
+      {/* TODO: confirm the safeguards each provider uses. */}
+      <p>
+        Some of these providers may store data outside the UK. When they do, we make sure there is
+        proper protection in place, such as a UK adequacy decision or the UK International Data
+        Transfer Agreement.
+      </p>
+
+      <h2>How long we keep it</h2>
+      {/* TODO: agree retention periods with the client and fill in the TBCs. */}
+      <p>
+        We keep information only as long as we need it. Candidate details and CVs: TBC after our last
+        contact with you. Employer contact details: TBC after our last contact. Some records have
+        legal minimums, for example:
+      </p>
+      <ul>
+        <li>records we must keep as a recruitment business: at least one year</li>
+        <li>right to work checks: while you work for us and for two years after</li>
+        <li>payroll and tax records: at least three years after the end of the tax year</li>
+      </ul>
+      <p>After that, we delete or securely destroy it.</p>
+
+      <h2>Your rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>get a copy of the information we hold about you</li>
+        <li>have anything wrong corrected</li>
+        <li>have your information deleted</li>
+        <li>limit how we use it, or object to how we use it</li>
+        <li>stop marketing and job alerts at any time</li>
+        <li>receive your information in a format you can take elsewhere</li>
+        <li>withdraw your consent, where we rely on it</li>
+      </ul>
+      <p>
+        Email {email} to use any of these. We&apos;ll reply within one month. It&apos;s free.
+      </p>
+
+      <h2>Complaints</h2>
+      <p>
+        If you&apos;re unhappy with how we&apos;ve handled your information, please tell us first.
+        We&apos;ll acknowledge your complaint within 30 days, look into it properly and keep you
+        updated. Our <Link href="/complaints">complaints policy</Link> explains the process.
+      </p>
+      <p>
+        You can also complain to the Information Commissioner&apos;s Office at{" "}
+        <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk/make-a-complaint</a> or on 0303 123
+        1113.
+      </p>
+
+      <h2>Changes to this notice</h2>
+      <p>
+        We&apos;ll update this notice when things change. The latest version is always on this page.
+      </p>
+
+      <h2>Photo credits</h2>
+      <p>Photos on this site come from Unsplash and are used under the Unsplash License:</p>
+      <ul>
+        {Object.values(photos).map((p) => (
+          <li key={p.unsplashId}>
+            {p.label}: <a href={`https://unsplash.com/photos/${p.unsplashId}`}>{p.credit}</a>
           </li>
-        </ul>
-        <p>
-          Please don&apos;t include sensitive details in your CV that we don&apos;t need, such as
-          health information, religion or ethnicity.
-        </p>
-
-        <h2>How we use it</h2>
-        <ul>
-          <li>to reply to your enquiry</li>
-          <li>if you&apos;re a candidate, to find suitable work for you and talk to you about it</li>
-          <li>if you&apos;re an employer, to understand your vacancy and introduce candidates</li>
-          <li>to meet our legal and regulatory obligations as a recruitment business</li>
-        </ul>
-        <p>
-          We will never send your CV or details to an employer without talking to you first.
-        </p>
-
-        <h2>Our lawful basis</h2>
-        {/* TODO: confirm the lawful bases with whoever reviews this notice. */}
-        <ul>
-          <li>
-            <strong>Consent:</strong> when you send us your CV and tick the box on our form. You can
-            withdraw your consent at any time by contacting us.
-          </li>
-          <li>
-            <strong>Steps before a contract:</strong> when you ask us to help you find work or fill a
-            vacancy.
-          </li>
-          <li>
-            <strong>Legitimate interests:</strong> running and improving our recruitment service,
-            where this doesn&apos;t override your rights.
-          </li>
-          <li>
-            <strong>Legal obligation:</strong> where the law requires us to keep certain records.
-          </li>
-        </ul>
-
-        <h2>Who we share it with</h2>
-        <ul>
-          <li>employers we introduce you to, only with your agreement</li>
-          {/* TODO: list the hosting provider and email provider actually used. */}
-          <li>
-            companies that provide services to us, such as website hosting (TBC), our email service
-            (TBC) and Resend, which delivers messages from our website forms
-          </li>
-          <li>authorities such as HMRC, where the law requires it</li>
-        </ul>
-        {/* TODO: confirm the safeguards each provider uses for transfers outside the UK. */}
-        <p>
-          Some of these providers may process data outside the UK. Where they do, we make sure
-          appropriate safeguards are in place, such as the UK International Data Transfer Agreement
-          or an equivalent.
-        </p>
-
-        <h2>How long we keep it</h2>
-        {/* TODO: agree retention periods with the client. */}
-        <p>
-          We keep candidate details and CVs for TBC after our last contact with you, and employer
-          enquiries for TBC, unless the law requires us to keep them for longer. After that, we
-          delete them securely.
-        </p>
-
-        <h2>Your rights</h2>
-        <p>You have the right to:</p>
-        <ul>
-          <li>ask for a copy of the information we hold about you</li>
-          <li>ask us to correct anything that&apos;s wrong</li>
-          <li>ask us to delete your information</li>
-          <li>ask us to limit how we use it, or object to how we use it</li>
-          <li>ask us to transfer it to you or another organisation</li>
-          <li>withdraw your consent at any time</li>
-        </ul>
-        <p>
-          To use any of these rights, email <a href={`mailto:${site.email}`}>{site.email}</a>. We will
-          reply within one month.
-        </p>
-
-        <h2>Cookies</h2>
-        {/* TODO: update this section when analytics are added. */}
-        <p>This website doesn&apos;t use cookies or any tracking tools.</p>
-
-        <h2>Complaints</h2>
-        <p>
-          If you&apos;re unhappy with how we&apos;ve handled your information, please contact us
-          first so we can put it right. You can also complain to the Information Commissioner&apos;s
-          Office at <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk/make-a-complaint</a> or
-          on 0303 123 1113.
-        </p>
-
-        <h2>Photo credits</h2>
-        <p>Photos on this site are from Unsplash, used under the Unsplash License:</p>
-        <ul>
-          {Object.values(photos).map((p) => (
-            <li key={p.unsplashId}>
-              {p.label}: <a href={`https://unsplash.com/photos/${p.unsplashId}`}>{p.credit}</a>
-            </li>
-          ))}
-        </ul>
-
-        <h2>Changes to this notice</h2>
-        <p>We may update this notice from time to time. The latest version will always be on this page.</p>
-      </article>
-    </main>
+        ))}
+      </ul>
+    </LegalPage>
   );
 }
