@@ -52,6 +52,22 @@ The layout is mobile first: plain CSS rules are for phones (375px), and
 `@media (min-width: …)` rules add the tablet (768px) and desktop (1024px,
 1280px) layouts.
 
+## Design rules
+
+The layout is a "split studio": most sections pair two halves, echoing the two
+sides the business serves. The rules below come from the design skills listed in
+[awesome-ai-tools-for-ui](https://github.com/maxbogo/awesome-ai-tools-for-ui)
+(Anthropic frontend-design, Hallmark, Make Interfaces Feel Better, Unslop) and
+keep the site from looking templated:
+
+- One bold moment: the two-sided hero. Everything else stays quiet.
+- No uppercase labels above every heading, no 01/02 numbering unless it's a
+  real sequence, no arrows tacked onto buttons, no fade-in on every section.
+- Lists and split rows, not grids of identical icon cards.
+- Copy in plain British English: no em dashes, no "not just X, but Y", no
+  stock AI words (seamless, leverage, elevate and so on).
+- Colours and fonts only from the tokens in `globals.css`.
+
 ## Logo files
 
 The client's artwork is `brand/logo-original.jpg`. Every logo file the site uses
