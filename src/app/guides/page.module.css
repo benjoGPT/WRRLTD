@@ -1,0 +1,62 @@
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  list-style: none;
+  padding: 0;
+  border-top: 2px solid var(--navy);
+}
+
+/* Each row is one big link (the ::after overlay makes the whole row clickable) */
+.item {
+  position: relative;
+  padding-block: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.item h2 {
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem);
+  max-width: 34ch;
+}
+
+.item h2 a {
+  text-decoration: none;
+}
+
+.item h2 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.item:hover h2 a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.item p:last-child {
+  margin-top: 8px;
+  max-width: 62ch;
+  color: var(--slate-text);
+}
+
+.audience {
+  margin-bottom: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--slate-text);
+}
+
+@media (min-width: 1024px) {
+  .item {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: baseline;
+    padding-block: 32px;
+  }
+
+  .item p:last-child {
+    margin-top: 0;
+  }
+}

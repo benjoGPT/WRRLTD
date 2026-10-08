@@ -1,5 +1,6 @@
 import { site, siteUrl } from "@/config/site";
 import type { Faq } from "./faqs";
+import type { Guide } from "./guides";
 import type { Job } from "./jobs";
 import { sectorNames, type Sector } from "./sectors";
 import { founders, fullName } from "./team";
@@ -124,5 +125,20 @@ export function jobPostingSchema(job: Job) {
     }),
     identifier: { "@type": "PropertyValue", name: site.name, value: job.slug },
     url: `${siteUrl}/jobs/${job.slug}`,
+  };
+}
+
+/** Article data for a guide. */
+export function articleSchema(guide: Guide) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: guide.title,
+    description: guide.description,
+    dateModified: guide.updated,
+    image: `${siteUrl}/guides/${guide.slug}/opengraph-image`,
+    author: { "@id": orgId },
+    publisher: { "@id": orgId },
+    mainEntityOfPage: `${siteUrl}/guides/${guide.slug}`,
   };
 }

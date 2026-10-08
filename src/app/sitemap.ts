@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/config/site";
 import { legalPages } from "@/lib/legal";
+import { guides } from "@/lib/guides";
 import { jobs } from "@/lib/jobs";
 import { sectors } from "@/lib/sectors";
 
@@ -8,7 +9,7 @@ import { sectors } from "@/lib/sectors";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${siteUrl}/`, changeFrequency: "monthly", priority: 1 },
-    ...["/jobs", "/employers", "/candidates", "/sectors", "/about", "/faq", "/contact"].map((path) => ({
+    ...["/jobs", "/employers", "/candidates", "/sectors", "/about", "/faq", "/guides", "/contact"].map((path) => ({
       url: `${siteUrl}${path}`,
       changeFrequency: "monthly" as const,
       priority: 0.8,
@@ -21,6 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/sectors/${s.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...guides.map((g) => ({
+      url: `${siteUrl}/guides/${g.slug}`,
+      lastModified: g.updated,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
     })),
     ...legalPages.map((p) => ({
       url: `${siteUrl}${p.href}`,
