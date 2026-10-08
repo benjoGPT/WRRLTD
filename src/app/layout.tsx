@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Figtree, Sora } from "next/font/google";
 import { site, siteUrl } from "@/config/site";
 import { Footer } from "@/components/Footer";
-import { BackToTop } from "@/components/BackToTop";
 import { Header } from "@/components/Header";
 import { ScrollEffects } from "@/components/ScrollEffects";
 import { CookieBanner } from "@/components/cookies/CookieBanner";
@@ -56,7 +55,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         {children}
         <Footer />
-        <BackToTop />
         <ScrollEffects />
         {site.cookieBanner && <CookieBanner />}
       </body>

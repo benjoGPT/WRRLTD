@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import { cvLink } from "@/lib/nav";
 import styles from "./StickyCvButton.module.css";
 
@@ -34,7 +33,6 @@ export function StickyCvButton() {
     <div className={styles.bar} data-visible={visible} aria-hidden={!visible}>
       <a href={cvLink} className="btn btn--block" tabIndex={visible ? undefined : -1}>
         Send your CV
-        <ArrowRight size={18} aria-hidden="true" />
       </a>
     </div>
   );

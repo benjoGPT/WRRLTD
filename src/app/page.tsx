@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { About } from "@/components/About";
-import { AudienceSplit } from "@/components/AudienceSplit";
 import { Contact } from "@/components/contact/Contact";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { Hero } from "@/components/Hero";
+import { Paths } from "@/components/Paths";
 import { RouteFinder } from "@/components/RouteFinder";
-import { SectorMarquee } from "@/components/SectorMarquee";
-import { HowItWorks } from "@/components/HowItWorks";
 import { StickyCvButton } from "@/components/StickyCvButton";
 import { Standards } from "@/components/Standards";
 import { Sectors } from "@/components/Sectors";
@@ -25,12 +23,10 @@ export default function Home() {
     <main id="main">
       <JsonLd />
       <Hero />
-      <SectorMarquee />
-      <AudienceSplit />
+      <Paths />
       <Standards />
       <Sectors />
       <RouteFinder />
-      <HowItWorks />
       <About />
       <Faq />
       <Contact />

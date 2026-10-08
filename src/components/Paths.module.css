@@ -1,0 +1,105 @@
+.section {
+  padding-block: var(--section-y);
+  display: grid;
+  gap: var(--section-y);
+}
+
+/* Phones: photo on top, text below. Desktop: two halves with a clear gutter. */
+.row {
+  display: grid;
+  gap: 32px;
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.media {
+  position: relative;
+  order: -1;
+  aspect-ratio: 4 / 3;
+  background: var(--navy);
+  overflow: hidden;
+}
+
+.text {
+  min-width: 0;
+}
+
+.title {
+  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  max-width: 18ch;
+  overflow-wrap: anywhere;
+}
+
+.intro {
+  margin-top: 16px;
+  max-width: 48ch;
+  font-size: 1.125rem;
+  color: var(--slate-text);
+}
+
+/* The steps are a real sequence, so a counter is honest here */
+.steps {
+  list-style: none;
+  margin: 32px 0 36px;
+  padding: 0;
+  counter-reset: step;
+  border-top: 1px solid var(--line);
+}
+
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.steps li::before {
+  content: counter(step);
+  grid-row: span 2;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--slate);
+  font-variant-numeric: tabular-nums;
+}
+
+.steps h3 {
+  font-size: 1.0625rem;
+}
+
+.steps p {
+  margin-top: 2px;
+  color: var(--slate-text);
+  max-width: 52ch;
+}
+
+@media (min-width: 768px) {
+  .media {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 1024px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 80px;
+    align-items: center;
+  }
+
+  .media {
+    order: 0;
+    aspect-ratio: 4 / 5;
+  }
+
+  /* Alternate: photo left, text right */
+  .reverse .media {
+    order: -1;
+  }
+}
