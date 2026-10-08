@@ -12,7 +12,7 @@ export const site = {
   legalName: "Wright Point Recruitment Ltd",
   tagline: "The Right People. The Right Fit.",
   description:
-    "Wright Point Recruitment is a Blackpool-based recruitment consultancy placing permanent and temporary staff across a wide range of industries.",
+    "Wright Point Recruitment places permanent and temporary staff with businesses across the UK. Based in Blackpool, recruiting nationwide in 12 sectors.",
 
   // TODO: real phone number before launch.
   phone: "01253 000000",
@@ -36,6 +36,8 @@ export const site = {
   // Town the business is based in. Used in copy and the JSON-LD.
   locality: "Blackpool",
   region: "Lancashire",
+  // Confirmed by the client: nationwide, full UK coverage.
+  coverage: "the UK",
 
   /**
    * Launch switch. While false, every page is marked "noindex" so search
@@ -43,6 +45,15 @@ export const site = {
    * TODO: set to true at launch, once every placeholder above is real.
    */
   isLive: false,
+
+  /**
+   * Shows the cookie banner. Legally it's only needed once the site uses
+   * optional cookies (analytics or marketing). It's switched on so the
+   * consent system is ready for when analytics are added.
+   * TODO: if the site launches with no optional cookies, you can set this to
+   * false; the essential consent cookie is then never set.
+   */
+  cookieBanner: true,
 
   // Largest CV we accept, in megabytes. Vercel rejects request bodies over
   // 4.5MB, so 4MB leaves room for the rest of the form.

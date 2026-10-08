@@ -15,9 +15,9 @@ const panels = [
     label: "For employers",
     title: "Find the right people for your business",
     points: [
-      "Permanent and temporary staff across 12 sectors.",
-      "We take the time to understand the role and your business before we introduce anyone.",
-      "A straightforward, professional and personal service from first call to placement.",
+      "Permanent and temporary staff in 12 sectors, anywhere in the UK.",
+      "We get to know the role and your business before we introduce anyone.",
+      "We advertise your vacancy on our website, social media and the main job sites.",
     ],
     cta: "I'm hiring",
     href: hireLink,
@@ -28,8 +28,8 @@ const panels = [
     label: "For candidates",
     title: "Find work that fits you",
     points: [
-      "Permanent and temporary roles across 12 sectors.",
-      "We get to know you, so we only put you forward for roles that suit you.",
+      "Permanent and temporary roles in 12 sectors, all over the UK.",
+      "Apply online with your CV in a couple of minutes.",
       // TODO: confirm with the client. (UK law generally bars agencies from
       // charging work-seekers for finding them work.)
       "We never charge candidates for finding them work.",

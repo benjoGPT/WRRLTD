@@ -31,8 +31,8 @@ export function Hero() {
             <span className={styles.accent}>The Right Fit.</span>
           </h1>
           <p className={styles.lede}>
-            We find permanent and temporary staff for businesses in {site.locality} and beyond,
-            and help candidates find work that suits them.
+            Permanent and temporary recruitment across {site.coverage}. We find reliable people
+            for businesses, and the right next role for the people we represent.
           </p>
           <p className={styles.placing}>
             <span className={styles.dot} aria-hidden="true" />
@@ -57,15 +57,15 @@ export function Hero() {
         {/* Photo collage in slanted tiles, echoing the angles in the logo */}
         <div className={styles.collage}>
           <figure className={`${styles.tile} ${styles.tile1}`}>
-            <Photo name="construction" sizes="(min-width: 1024px) 260px, 33vw" eager showLabel={false} />
+            <Photo name="construction" sizes="(min-width: 1024px) 260px, 33vw" eager />
             <figcaption>Construction</figcaption>
           </figure>
           <figure className={`${styles.tile} ${styles.tile2}`}>
-            <Photo name="kitchen" sizes="(min-width: 1024px) 260px, 33vw" eager showLabel={false} />
+            <Photo name="kitchen" sizes="(min-width: 1024px) 260px, 33vw" eager />
             <figcaption>Hospitality</figcaption>
           </figure>
           <figure className={`${styles.tile} ${styles.tile3}`}>
-            <Photo name="warehouse" sizes="(min-width: 1024px) 260px, 33vw" eager showLabel={false} />
+            <Photo name="warehouse" sizes="(min-width: 1024px) 260px, 33vw" eager />
             <figcaption>Warehouse</figcaption>
           </figure>
         </div>

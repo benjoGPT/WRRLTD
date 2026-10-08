@@ -31,9 +31,9 @@ export function About() {
           </p>
           <p>
             Our approach is simple. We take the time to understand the role, the business and the
-            individual before making an introduction. The right recruitment isn&apos;t just about
-            filling a vacancy. It&apos;s about finding the right person, the right opportunity and
-            the right fit for both sides.
+            individual before making an introduction. Good recruitment isn&apos;t just filling a
+            vacancy. It&apos;s finding the right person, the right opportunity and the right fit for
+            both sides.
           </p>
           <p>
             Whether you&apos;re a business looking for your next employee or a candidate looking
@@ -43,9 +43,9 @@ export function About() {
 
           <p className={styles.location}>
             <MapPin size={20} aria-hidden="true" />
-            {/* TODO: name the wider areas covered once the client confirms them. */}
             <span>
-              Based in {site.locality}, working with businesses and candidates across a wider area.
+              Based in {site.locality}. Recruiting for businesses and candidates right across{" "}
+              {site.coverage}.
             </span>
           </p>
         </div>

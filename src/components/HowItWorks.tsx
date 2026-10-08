@@ -19,15 +19,15 @@ const journeys = [
     steps: [
       {
         title: "Tell us what you need",
-        text: "Call us or send the form with the role, the hours and whether it's permanent or temporary.",
+        text: "Call us or fill in the form: the role, the hours, the location and whether it's permanent or temporary.",
       },
       {
-        title: "We get to know the role",
-        text: "We ask about the job, your business and what the right person looks like for you.",
+        title: "We find the people",
+        text: "We advertise on our website, social media and job sites, and search the candidates already registered with us.",
       },
       {
-        title: "We introduce suitable candidates",
-        text: "You only hear about people we believe fit the role and your team.",
+        title: "You meet a shortlist",
+        text: "We check each candidate first, so you only spend time on people who fit the role.",
       },
       {
         title: "You make the choice",
@@ -41,12 +41,12 @@ const journeys = [
     icon: UserRound,
     steps: [
       {
-        title: "Send us your CV",
-        text: "Upload it with the form below. No CV yet? Call or email us and we'll help.",
+        title: "Apply online",
+        text: "Fill in the short form and attach your CV. No CV yet? Call or email us and we'll help.",
       },
       {
-        title: "We have a chat",
-        text: "We talk about your experience, the work you want and when you're available.",
+        title: "We give you a call",
+        text: "We talk through your experience, the work you want, where you can travel and when you're free.",
       },
       {
         title: "We match you to roles",
