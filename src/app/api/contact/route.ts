@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendToAts } from "@/lib/ats";
 import { sendCandidateCv, sendEmployerEnquiry } from "@/lib/email";
 import { TURNSTILE_FIELD, verifyTurnstile } from "@/lib/turnstile";
 import {
@@ -17,7 +18,8 @@ import {
  * POST /api/contact
  *
  * Receives both forms, checks everything again on the server (never trust the
- * browser), filters out spam, then emails the details to the client.
+ * browser), filters out spam, then emails the details to the client and, if
+ * one is set up, sends them to the recruitment system (see lib/ats.ts).
  *
  * The forms send JSON-friendly requests. If JavaScript is switched off the
  * browser posts the form normally, so we redirect to /thank-you instead.
@@ -66,8 +68,12 @@ export async function POST(request: Request) {
     const result = employerSchema.safeParse(fields);
     if (!result.success) return reply(422, { ok: false, errors: toFieldErrors(result.error) });
 
-    const sent = await sendEmployerEnquiry(result.data);
-    return sent.ok ? reply(200, { ok: true }) : reply(502, { ok: false });
+    const [sent, ats] = await Promise.all([
+      sendEmployerEnquiry(result.data),
+      sendToAts({ kind: "employer", data: result.data }),
+    ]);
+    // Counts as delivered if it reached the inbox or the ATS
+    return sent.ok || ats.ok ? reply(200, { ok: true }) : reply(502, { ok: false });
   }
 
   if (formType === "candidate") {
@@ -91,8 +97,12 @@ export async function POST(request: Request) {
 
     // Keep the original name but strip anything odd from it.
     const safeName = file.name.replace(/[^\w.\- ]+/g, "_").slice(-100);
-    const sent = await sendCandidateCv(result.data, { filename: safeName, content: bytes });
-    return sent.ok ? reply(200, { ok: true }) : reply(502, { ok: false });
+    const cvFile = { filename: safeName, content: bytes };
+    const [sent, ats] = await Promise.all([
+      sendCandidateCv(result.data, cvFile),
+      sendToAts({ kind: "candidate", data: result.data, cv: cvFile }),
+    ]);
+    return sent.ok || ats.ok ? reply(200, { ok: true }) : reply(502, { ok: false });
   }
 
   return reply(400, { ok: false, message: "Unknown form." });

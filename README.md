@@ -193,6 +193,39 @@ Set these in `.env.local` locally, and in Cloudflare for the live site
 | `CONTACT_TO_EMAIL`   | Yes    | Where submissions go (comma-separate several addresses) |
 | `CONTACT_FROM_EMAIL` | Later  | Sender once the domain is verified in Resend            |
 | `TURNSTILE_SECRET_KEY` | Yes | Bot check secret (Secret). Its site key goes in `site.ts` |
+| `ATS_PROVIDER`       | Later  | Recruitment system to send submissions to (`webhook`, or blank for email only) |
+| `ATS_WEBHOOK_URL`    | Later  | Where `webhook` sends them, e.g. a Make or Zapier webhook |
+| `ATS_WEBHOOK_SECRET` | Optional | Signs each request (Secret), see below |
+
+## Recruitment system (ATS)
+
+Form submissions are always emailed. They can also go to a recruitment system
+(applicant tracking system, ATS) so CVs live in one searchable place, not in
+inboxes. The code is in `src/lib/ats.ts`.
+
+Until an ATS is chosen, use the `webhook` option: set `ATS_PROVIDER=webhook`
+and `ATS_WEBHOOK_URL` to a Make or Zapier webhook, then build the steps there
+(for example "create candidate in <ATS>, attach CV"). Each request is JSON:
+
+```json
+{
+  "type": "candidate.application",
+  "receivedAt": "2026-10-08T12:34:00.000Z",
+  "source": "website",
+  "name": "…", "email": "…", "phone": "…", "sector": "…", "jobRef": "…",
+  "cv": { "filename": "cv.pdf", "contentType": "application/pdf", "sizeBytes": 123456, "base64": "…" }
+}
+```
+
+Employer enquiries arrive as `"type": "employer.enquiry"` with the form's
+fields and no `cv`. If `ATS_WEBHOOK_SECRET` is set, each request carries
+`X-WPR-Signature: sha256=<hex HMAC-SHA256 of the body>` so the receiver can
+reject anything that didn't come from the site. Check the webhook service's
+size limit: the CV adds about a third to its file size in base64.
+
+A submission counts as sent if it reaches the inbox **or** the ATS, so one
+failing doesn't lose the application. To connect an ATS directly later, add a
+provider to `src/lib/ats.ts` (same shape as `webhook`) and set `ATS_PROVIDER`.
 
 ## Before launch
 
