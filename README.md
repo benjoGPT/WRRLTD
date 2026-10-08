@@ -89,6 +89,15 @@ keep the site from looking templated:
 - One bold moment: the two-sided hero. Everything else stays quiet.
 - No uppercase labels above every heading, no 01/02 numbering unless it's a
   real sequence, no arrows tacked onto buttons, no fade-in on every section.
+- Fonts: Red Hat Display (headings) and Red Hat Text (body), set in
+  `src/app/layout.tsx`.
+- Scroll motion is tied to the scroll position (CSS scroll-driven animations,
+  no JavaScript) and each effect belongs to one element: the hero seam swings
+  and its two lines drift apart, inner-page photos parallax, the home cards
+  are unveiled on the logo's slant, step and sector lists draw their rule and
+  slide in, the footer statement fills, and guides and jobs show a reading
+  progress bar. Browsers without support, and visitors who ask for reduced
+  motion, get the still layout.
 - Lists and split rows, not grids of identical icon cards.
 - Copy in plain British English: no em dashes, no "not just X, but Y", no
   stock AI words (seamless, leverage, elevate and so on).

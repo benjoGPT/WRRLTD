@@ -83,3 +83,43 @@
     margin-top: 96px;
   }
 }
+
+/* Scroll: each photo is unveiled by a wipe on the logo's slant and settles
+   from a slight zoom. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .media {
+      animation: unveil linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+
+    .media img {
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 50%;
+    }
+
+    .card:nth-child(2) .media {
+      animation-range: entry 15% cover 55%;
+    }
+  }
+}
+
+@keyframes unveil {
+  from {
+    clip-path: polygon(0 0, 0 0, -30% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 130% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.18);
+  }
+  to {
+    transform: none;
+  }
+}

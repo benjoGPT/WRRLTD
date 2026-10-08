@@ -159,3 +159,24 @@
     margin-top: 80px;
   }
 }
+
+/* Scroll: the closing statement fills from faint to white as it comes up */
+@supports (animation-timeline: view()) and ((background-clip: text) or (-webkit-background-clip: text)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .statement {
+      background: linear-gradient(90deg, var(--white) 50%, rgb(255 255 255 / 0.28) 50%) 100% 0 / 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: fill-text linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes fill-text {
+  to {
+    background-position: 0 0;
+  }
+}

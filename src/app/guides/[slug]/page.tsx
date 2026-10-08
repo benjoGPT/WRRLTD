@@ -34,6 +34,7 @@ export default async function GuidePage({ params }: PageProps<"/guides/[slug]">)
 
   return (
     <main id="main">
+      <div className="reading-progress" aria-hidden="true" />
       <StructuredData data={articleSchema(guide)} />
       <PageHero
         title={guide.title}

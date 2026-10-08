@@ -43,6 +43,7 @@ export default async function JobPage({ params }: PageProps<"/jobs/[slug]">) {
 
   return (
     <main id="main">
+      <div className="reading-progress" aria-hidden="true" />
       {!job.example && <StructuredData data={jobPostingSchema(job)} />}
       <PageHero
         title={job.title}

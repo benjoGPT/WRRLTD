@@ -152,3 +152,67 @@
     padding-right: max(var(--gutter), calc((100vw - var(--container)) / 2));
   }
 }
+
+/* Scroll: as the hero scrolls away, the seam swings wider and the two lines
+   drift apart. Scroll-driven, so it tracks the scroll position exactly;
+   browsers without support (and reduced motion) just keep the still layout. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero {
+      view-timeline: --hero block;
+    }
+
+    .employers .line,
+    .candidates .line {
+      animation:
+        rise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both,
+        drift-up linear both;
+      animation-timeline: auto, --hero;
+      animation-range: normal, exit 0% exit 100%;
+    }
+
+    .candidates .line {
+      animation:
+        rise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 160ms both,
+        drift-down linear both;
+      animation-timeline: auto, --hero;
+      animation-range: normal, exit 0% exit 100%;
+    }
+
+    .employers {
+      animation: seam-phone linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 100%;
+    }
+
+    @media (min-width: 1024px) {
+      .employers {
+        animation-name: seam-desktop;
+      }
+    }
+  }
+}
+
+@keyframes drift-up {
+  to {
+    translate: 0 -56px;
+  }
+}
+
+@keyframes drift-down {
+  to {
+    translate: 0 40px;
+  }
+}
+
+@keyframes seam-phone {
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 96px), 0 100%);
+  }
+}
+
+@keyframes seam-desktop {
+  to {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 360px) 100%, 0 100%);
+  }
+}

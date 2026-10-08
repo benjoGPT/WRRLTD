@@ -130,3 +130,45 @@
   font-weight: 600;
   overflow-wrap: anywhere;
 }
+
+/* Scroll: the photo drifts slower than the page (parallax) and the title
+   lifts away as the hero leaves the screen. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero {
+      view-timeline: --page-hero block;
+    }
+
+    .media {
+      overflow: hidden;
+    }
+
+    .media img {
+      animation: photo-drift linear both;
+      animation-timeline: --page-hero;
+      animation-range: exit 0% exit 100%;
+    }
+
+    .textInner {
+      animation: lift linear both;
+      animation-timeline: --page-hero;
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+
+@keyframes photo-drift {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: translateY(14%) scale(1.14);
+  }
+}
+
+@keyframes lift {
+  to {
+    translate: 0 -48px;
+    opacity: 0.35;
+  }
+}
