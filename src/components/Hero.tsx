@@ -10,7 +10,7 @@ import styles from "./Hero.module.css";
  */
 export function Hero() {
   return (
-    <section className={styles.hero} aria-labelledby="hero-title" id="top">
+    <section className={styles.hero} aria-labelledby="hero-title" id="top" data-sticky-hide>
       <h1 id="hero-title" className="sr-only">
         {site.name}: {site.tagline}
       </h1>

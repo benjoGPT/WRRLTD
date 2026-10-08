@@ -4,6 +4,7 @@ import { site, siteUrl } from "@/config/site";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ScrollEffects } from "@/components/ScrollEffects";
+import { StickyCvButton } from "@/components/StickyCvButton";
 import { CookieBanner } from "@/components/cookies/CookieBanner";
 import "./globals.css";
 
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <Footer />
         <ScrollEffects />
+        <StickyCvButton />
         {site.cookieBanner && <CookieBanner />}
       </body>
     </html>

@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   const reply = (status: number, body: { ok: boolean; errors?: FieldErrors; message?: string }) => {
     if (wantsJson) return NextResponse.json(body, { status });
     // No-JavaScript fallback: send people to a page rather than raw JSON.
-    const target = body.ok ? "/thank-you" : "/#contact";
+    const target = body.ok ? "/thank-you" : "/contact";
     return NextResponse.redirect(new URL(target, request.url), 303);
   };
 

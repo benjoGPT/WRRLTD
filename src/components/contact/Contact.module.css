@@ -138,3 +138,19 @@ a.asideLink:hover {
     column-gap: 64px;
   }
 }
+
+/* Used by FormSection (single form pages) */
+.formSection {
+  background: var(--paper);
+  scroll-margin-top: var(--header-h);
+}
+
+.formSection .panel {
+  background: var(--white);
+}
+
+@media (min-width: 1024px) {
+  .formSection .aside {
+    margin-top: 0;
+  }
+}

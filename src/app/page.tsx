@@ -1,36 +1,32 @@
 import type { Metadata } from "next";
-import { About } from "@/components/About";
-import { Contact } from "@/components/contact/Contact";
-import { Faq } from "@/components/Faq";
-import { JsonLd } from "@/components/JsonLd";
 import { Hero } from "@/components/Hero";
-import { Paths } from "@/components/Paths";
 import { RouteFinder } from "@/components/RouteFinder";
-import { StickyCvButton } from "@/components/StickyCvButton";
 import { Standards } from "@/components/Standards";
-import { Sectors } from "@/components/Sectors";
+import { StructuredData } from "@/components/StructuredData";
+import { AboutTeaser } from "@/components/home/AboutTeaser";
+import { HomePaths } from "@/components/home/HomePaths";
+import { SectorIndex } from "@/components/home/SectorIndex";
+import { site } from "@/config/site";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 
-/**
- * The home page. Each section is its own component in src/components, in the
- * order they appear on the page.
- */
 export const metadata: Metadata = {
+  title: { absolute: `${site.name} | Recruitment agency in ${site.locality}, recruiting UK-wide` },
+  description:
+    "Permanent and temporary recruitment across the UK. Wright Point Recruitment finds reliable staff for businesses and the right next role for candidates in 12 sectors.",
   alternates: { canonical: "/" },
 };
 
+/** Home page: a short overview that links out to the detail pages. */
 export default function Home() {
   return (
     <main id="main">
-      <JsonLd />
+      <StructuredData data={[organizationSchema(), websiteSchema()]} />
       <Hero />
-      <Paths />
+      <HomePaths />
       <Standards />
-      <Sectors />
+      <SectorIndex />
       <RouteFinder />
-      <About />
-      <Faq />
-      <Contact />
-      <StickyCvButton />
+      <AboutTeaser />
     </main>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import { site } from "@/config/site";
 import { cvAccept, sectorOptions } from "@/lib/formRules";
@@ -7,14 +8,18 @@ import { FormStatus } from "./FormStatus";
 import { Checkbox, FileField, RadioGroup, SelectField, TextArea, TextField } from "./Fields";
 import { SpamTrap } from "./SpamTrap";
 import { useContactForm } from "./useContactForm";
+import { usePrefillSector } from "./usePrefillSector";
 import styles from "./Form.module.css";
 
 /** Form for people looking for work, with a CV upload. */
 export function CandidateForm() {
   const { errors, status, serverMessage, onSubmit, startedRef } = useContactForm("candidate");
+  const formRef = useRef<HTMLFormElement>(null);
+  usePrefillSector(formRef);
 
   return (
     <form
+      ref={formRef}
       className={styles.form}
       onSubmit={onSubmit}
       noValidate

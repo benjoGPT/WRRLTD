@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Building2, Mail, MapPin, Phone, UserRound } from "lucide-react";
 import { site } from "@/config/site";
-import { OPEN_FORM_EVENT, type OpenFormDetail } from "@/lib/openForm";
 import { CandidateForm } from "./CandidateForm";
 import { EmployerForm } from "./EmployerForm";
 import styles from "./Contact.module.css";
@@ -25,8 +24,11 @@ export function Contact() {
 
   useEffect(() => {
     // Open the right form if the page loads with #employer-form etc.
+    // Also /contact?type=employer opens the employer form.
     const fromHash = () => {
-      const kind = hashToForm[window.location.hash];
+      const type = new URLSearchParams(window.location.search).get("type");
+      const kind =
+        hashToForm[window.location.hash] ?? (type === "employer" || type === "candidate" ? type : undefined);
       if (kind) setActive(kind);
     };
     // Also catch clicks on those links, even when the hash hasn't changed.
@@ -36,30 +38,17 @@ export function Contact() {
       const kind = hashToForm[href.slice(href.indexOf("#"))];
       if (kind) setActive(kind);
     };
-    // Opened from the route finder or a sector card, maybe with a sector chosen
-    const onOpenForm = (e: Event) => {
-      const { kind, sector } = (e as CustomEvent<OpenFormDetail>).detail;
-      setActive(kind);
-      if (sector) {
-        const select = document.querySelector<HTMLSelectElement>(
-          `[data-form="${kind}"] select[name="sector"]`,
-        );
-        if (select) select.value = sector;
-      }
-    };
     fromHash();
     window.addEventListener("hashchange", fromHash);
-    window.addEventListener(OPEN_FORM_EVENT, onOpenForm);
     document.addEventListener("click", onClick);
     return () => {
       window.removeEventListener("hashchange", fromHash);
-      window.removeEventListener(OPEN_FORM_EVENT, onOpenForm);
       document.removeEventListener("click", onClick);
     };
   }, []);
 
   return (
-    <section id="contact" className="section" aria-labelledby="contact-title">
+    <section id="contact" className="section" aria-labelledby="contact-title" data-sticky-hide>
       {/* Jump targets for the "I'm hiring" and "Send your CV" buttons */}
       <span id="employer-form" className={styles.anchor} />
       <span id="candidate-form" className={styles.anchor} />
@@ -67,7 +56,7 @@ export function Contact() {
       <div className={`container ${styles.layout}`}>
         <div className={styles.head}>
           <h2 id="contact-title" className="section-title">
-            Get in touch
+            Send us your details
           </h2>
           <p className="section-intro">
             Tell us what you&apos;re looking for and we&apos;ll get back to you.

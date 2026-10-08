@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 import { legalPages } from "@/lib/legal";
-import { cvLink, hireLink } from "@/lib/nav";
+import { cvLink, hireLink, navLinks } from "@/lib/nav";
 import { sectors } from "@/lib/sectors";
 import { CookieSettingsButton } from "./cookies/CookieSettingsButton";
 import { Logo } from "./Logo";
@@ -18,18 +18,28 @@ export function Footer() {
         <p className={styles.statement}>Whichever side you&apos;re on, we&apos;ll find the right fit.</p>
 
         <div className={styles.ctas}>
-          <a href={hireLink} className="btn btn--light">
+          <Link href={hireLink} className="btn btn--light">
             I&apos;m hiring
-          </a>
-          <a href={cvLink} className="btn btn--ghost-light">
+          </Link>
+          <Link href={cvLink} className="btn btn--ghost-light">
             I&apos;m looking for work
-          </a>
+          </Link>
         </div>
 
         <div className={styles.meta}>
           <Link href="/" className={styles.logo}>
             <Logo variant="stacked" inverted />
           </Link>
+
+          <nav aria-label="Pages" className={styles.pages}>
+            <ul>
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href}>{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <div className={styles.contact}>
             <a href={site.phoneHref}>{site.phone}</a>
@@ -43,7 +53,7 @@ export function Footer() {
             <ul>
               {sectors.map((s) => (
                 <li key={s.slug}>
-                  <a href={`/#sector-${s.slug}`}>{s.name}</a>
+                  <Link href={`/sectors/${s.slug}`}>{s.name}</Link>
                 </li>
               ))}
             </ul>

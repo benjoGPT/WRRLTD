@@ -33,7 +33,7 @@ export default function ThankYouPage() {
           <Link href="/" className="btn">
             Back to the home page
           </Link>
-          <Link href="/#sectors" className="btn btn--outline">
+          <Link href="/sectors" className="btn btn--outline">
             See the sectors we cover
           </Link>
         </div>

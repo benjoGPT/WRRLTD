@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { sectorGroups, sectors, type SectorGroup } from "@/lib/sectors";
-import { openForm } from "@/lib/openForm";
+import Link from "next/link";
+import { formLink } from "@/lib/nav";
 import styles from "./Sectors.module.css";
 
 type Filter = "All" | SectorGroup;
 const filters: Filter[] = ["All", ...sectorGroups];
 
 /**
- * The 12 sectors as a list (heading and filters on one half, the list on the
- * other). Each row opens the right form with that sector already chosen.
+ * The 12 sectors as a filterable list. Each row links to the sector's own page,
+ * and to the employer or candidate form with that sector already chosen.
  */
 export function Sectors() {
   const [filter, setFilter] = useState<Filter>("All");
@@ -21,11 +22,11 @@ export function Sectors() {
       <div className={`container ${styles.layout}`}>
         <div className={styles.head}>
           <h2 id="sectors-title" className="section-title">
-            Twelve sectors, one team
+            Find your sector
           </h2>
           <p className="section-intro">
-            Permanent and temporary roles in each. Pick a sector to apply or to tell us about a
-            vacancy.
+            Permanent and temporary roles in each. Open a sector to read more, or go straight to
+            the right form.
           </p>
           <div className={styles.filters} role="group" aria-label="Filter sectors">
             {filters.map((f) => (
@@ -51,16 +52,18 @@ export function Sectors() {
               <li key={slug} id={`sector-${slug}`} className={styles.row}>
                 <Icon size={22} strokeWidth={1.75} aria-hidden="true" className={styles.icon} />
                 <div className={styles.copy}>
-                  <h3 className={styles.name}>{name}</h3>
+                  <h3 className={styles.name}>
+                    <Link href={`/sectors/${slug}`}>{name}</Link>
+                  </h3>
                   <p className={styles.blurb}>{blurb}</p>
                 </div>
                 <div className={styles.actions}>
-                  <button type="button" onClick={() => openForm("candidate", name)}>
+                  <Link href={formLink("candidate", slug)}>
                     Find work<span className="sr-only"> in {name}</span>
-                  </button>
-                  <button type="button" onClick={() => openForm("employer", name)}>
+                  </Link>
+                  <Link href={formLink("employer", slug)}>
                     Hire<span className="sr-only"> {name} staff</span>
-                  </button>
+                  </Link>
                 </div>
               </li>
             ))}

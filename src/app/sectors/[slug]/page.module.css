@@ -1,0 +1,85 @@
+.roles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 2px solid var(--navy);
+}
+
+.roles li {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.paths {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+.paths > div {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding-top: 16px;
+  border-top: 2px solid var(--navy);
+}
+
+.paths h3 {
+  font-size: 1.25rem;
+}
+
+.paths p {
+  color: var(--slate-text);
+  max-width: 48ch;
+}
+
+.related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--navy);
+}
+
+.related a {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--slate-text);
+  text-decoration: none;
+}
+
+.related a svg {
+  margin-top: 3px;
+  color: var(--navy);
+}
+
+.related strong {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--navy);
+}
+
+.related a:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+  .roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+  }
+
+  .paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

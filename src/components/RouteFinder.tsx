@@ -1,9 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { ArrowLeft, ArrowRight, Building2, Check, UserRound } from "lucide-react";
 import { sectors } from "@/lib/sectors";
-import { openForm, type FormKind } from "@/lib/openForm";
+import { formLink } from "@/lib/nav";
+
+type FormKind = "employer" | "candidate";
 import styles from "./RouteFinder.module.css";
 
 /**
@@ -107,9 +110,12 @@ export function RouteFinder() {
                   ? "Tell us about the role and we'll start looking for the right people."
                   : "Send us your CV and we'll be in touch about suitable roles."}
               </p>
-              <button type="button" className="btn" onClick={() => openForm(kind, sector)}>
+              <Link
+                className="btn"
+                href={formLink(kind, sectors.find((s) => s.name === sector)?.slug)}
+              >
                 {kind === "employer" ? "Continue to the employer form" : "Continue to send your CV"}
-              </button>
+              </Link>
             </div>
           )}
 
