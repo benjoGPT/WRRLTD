@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { SplitSection } from "@/components/SplitSection";
+import { Founders } from "@/components/Founders";
 import { Standards } from "@/components/Standards";
 import { site } from "@/config/site";
 import { cvLink, hireLink } from "@/lib/nav";
@@ -43,6 +44,7 @@ export default function AboutPage() {
         </div>
       </SplitSection>
 
+      <Founders tone="paper" />
       <Standards />
 
       <SplitSection title="Where to next" tone="white">

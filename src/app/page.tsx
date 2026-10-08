@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Founders } from "@/components/Founders";
 import { Hero } from "@/components/Hero";
 import { RouteFinder } from "@/components/RouteFinder";
 import { Standards } from "@/components/Standards";
@@ -26,6 +27,7 @@ export default function Home() {
       <Standards />
       <SectorIndex />
       <RouteFinder />
+      <Founders title="The people you'll deal with" tone="paper" />
       <AboutTeaser />
     </main>
   );
