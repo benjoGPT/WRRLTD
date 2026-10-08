@@ -36,13 +36,21 @@ src/
   lib/formRules.ts      Form settings: CV size/types, spam-trap field names
   lib/validation.ts     Form rules (zod), used in the browser and on the server
   lib/email.ts          Builds and sends the emails via Resend
+  lib/sectors.ts        The 12 sectors: names, intros, example roles, photos
+  lib/faqs.ts           FAQ questions and answers (also feed Google's FAQ data)
+  lib/journeys.ts       The employer and candidate steps
+  lib/schema.ts         Structured data for search engines
   app/
-    layout.tsx          Fonts, default page titles, header and footer
-    page.tsx            The home page (list of sections in order)
-    privacy/            Privacy notice
-    thank-you/          Page shown after a form is sent
+    layout.tsx          Fonts, header, footer, cookie banner
+    page.tsx            Home: overview linking to the pages below
+    employers/          For employers, with the vacancy form (#enquire)
+    candidates/         For candidates, with the CV form (#apply)
+    sectors/            All sectors, plus one page per sector (sectors/[slug])
+    about/  faq/  contact/
+    privacy/ cookies/ terms/ complaints/ equal-opportunities/   Policies
+    thank-you/          Shown after a form is sent
     api/contact/        Receives both forms and sends the email
-    sitemap.ts, robots.ts, icon.tsx, opengraph-image.tsx   SEO files
+    sitemap.ts, robots.ts, opengraph-image.tsx (one per page)   SEO files
     globals.css         Colours, spacing, type and buttons
   components/           One file per section, each with its own .module.css
     contact/            The contact section, both forms and their fields
@@ -51,6 +59,16 @@ src/
 The layout is mobile first: plain CSS rules are for phones (375px), and
 `@media (min-width: …)` rules add the tablet (768px) and desktop (1024px,
 1280px) layouts.
+
+## SEO
+
+- Every page has its own title, description, canonical URL and share image.
+- One `<h1>` per page; breadcrumbs on every inner page.
+- Structured data: EmploymentAgency and WebSite (home), BreadcrumbList (inner
+  pages), FAQPage (/faq), Service (each sector page).
+- One page per sector, so searches like "HGV driver recruitment" have a page
+  that matches.
+- `sitemap.xml` lists every page. The site stays `noindex` until `isLive` is true.
 
 ## Design rules
 
@@ -91,15 +109,15 @@ the script still match the artwork, and run it again.
 
 ## Photos
 
-Photos are free Unsplash images listed in `src/lib/photos.ts` (file, alt text,
-Unsplash ID and photographer). Download them into `public/images` with:
+Photos are free Unsplash images listed in `src/lib/photos.ts` (alt text,
+Unsplash ID and photographer). Until they're downloaded, visitors' browsers load
+them straight from Unsplash, with a branded navy placeholder underneath in case
+that fails. Before launch, download them so the site serves its own copies
+(faster and more reliable):
 
 ```bash
 python3 scripts/fetch-photos.py   # needs Pillow and access to unsplash.com
-```
-
-Until a photo is downloaded, the site shows a branded navy placeholder in its
-place, so the layout always looks finished. Photographers are credited on
+``` Photographers are credited on
 /privacy. Before launch, check each photo's Unsplash page still shows the free
 Unsplash License, and use real photos of the client's work if they have any.
 
