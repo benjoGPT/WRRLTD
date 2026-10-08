@@ -26,7 +26,7 @@ for file, unsplash_id in entries:
     if out.exists():
         print("already have", out.name)
         continue
-    url = f"https://unsplash.com/photos/{unsplash_id}/download?force=true"
+    url = f"https://unsplash.com/photos/{unsplash_id}/download?force=true&w={MAX_WIDTH}"
     print("downloading", unsplash_id, "->", out.name)
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=60) as res:

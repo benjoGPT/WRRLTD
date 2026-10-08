@@ -1,8 +1,16 @@
+/* The photo fills its parent box, cropped to fit */
 .img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  /* Subtle edge so light photos don't bleed into light backgrounds */
+  outline: 1px solid oklch(0 0 0 / 0.08);
+  outline-offset: -1px;
 }
 
-/* Branded stand-in: navy with the logo's diagonal stripes and a large line icon */
+/* Branded stand-in, shown until (or if) the photo loads */
 .placeholder {
   position: absolute;
   inset: 0;
@@ -22,16 +30,4 @@
   height: auto;
   aspect-ratio: 1;
   color: rgb(255 255 255 / 0.16);
-}
-
-.label {
-  position: absolute;
-  left: 20px;
-  bottom: 16px;
-  color: rgb(255 255 255 / 0.85);
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
