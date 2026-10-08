@@ -1,73 +1,48 @@
-import { ArrowRight } from "lucide-react";
 import { site } from "@/config/site";
 import { cvLink, hireLink } from "@/lib/nav";
-import { Photo } from "./Photo";
-import { RotatingWord } from "./RotatingWord";
-import { Spotlight } from "./Spotlight";
 import styles from "./Hero.module.css";
 
-// Example roles for the rotating line. TODO: confirm with the client.
-const roles = [
-  "warehouse operatives",
-  "HGV drivers",
-  "chefs",
-  "site labourers",
-  "electricians",
-  "office administrators",
-  "maintenance engineers",
-];
-
-/** First screen: tagline, what we do, two routes in, and a photo collage. */
+/**
+ * The hero is a diptych: employers on the navy half, candidates on the light
+ * half, with the tagline split across the two. The seam between them is the
+ * slanted stroke from the W in the logo. It's the one bold moment on the page;
+ * everything below is kept quiet.
+ */
 export function Hero() {
   return (
-    <section className={`${styles.hero} on-dark`} aria-labelledby="hero-title" id="top">
-      <Spotlight />
-      <div className={`container ${styles.inner}`}>
-        <div className={styles.copy}>
-          <p className="eyebrow">Permanent &amp; temporary recruitment</p>
-          <h1 id="hero-title" className={styles.title}>
-            The Right People.
-            <br />
-            <span className={styles.accent}>The Right Fit.</span>
-          </h1>
-          <p className={styles.lede}>
-            Permanent and temporary recruitment across {site.coverage}. We find reliable people
-            for businesses, and the right next role for the people we represent.
-          </p>
-          <p className={styles.placing}>
-            <span className={styles.dot} aria-hidden="true" />
-            Placing{" "}
-            <RotatingWord
-              words={roles}
-              srText="people across 12 sectors, from warehouse and driving to hospitality and trades."
-            />
-          </p>
-          <div className={styles.buttons}>
-            <a href={hireLink} className="btn btn--light">
-              I&apos;m hiring
-              <ArrowRight size={18} aria-hidden="true" />
-            </a>
-            <a href={cvLink} className="btn btn--ghost-light">
-              I&apos;m looking for work
-              <ArrowRight size={18} aria-hidden="true" />
-            </a>
-          </div>
-        </div>
+    <section className={styles.hero} aria-labelledby="hero-title" id="top">
+      <h1 id="hero-title" className="sr-only">
+        {site.name}: {site.tagline}
+      </h1>
 
-        {/* Photo collage in slanted tiles, echoing the angles in the logo */}
-        <div className={styles.collage}>
-          <figure className={`${styles.tile} ${styles.tile1}`}>
-            <Photo name="construction" sizes="(min-width: 1024px) 260px, 33vw" eager />
-            <figcaption>Construction</figcaption>
-          </figure>
-          <figure className={`${styles.tile} ${styles.tile2}`}>
-            <Photo name="kitchen" sizes="(min-width: 1024px) 260px, 33vw" eager />
-            <figcaption>Hospitality</figcaption>
-          </figure>
-          <figure className={`${styles.tile} ${styles.tile3}`}>
-            <Photo name="warehouse" sizes="(min-width: 1024px) 260px, 33vw" eager />
-            <figcaption>Warehouse</figcaption>
-          </figure>
+      <div className={`${styles.half} ${styles.employers} on-dark`}>
+        <div className={styles.inner}>
+          <p className={styles.audience}>For employers</p>
+          <p className={styles.line} aria-hidden="true">
+            <span>The Right</span> <span>People.</span>
+          </p>
+          <p className={styles.copy}>
+            Permanent and temporary staff for businesses anywhere in {site.coverage}, in 12 sectors.
+          </p>
+          <a href={hireLink} className="btn btn--light">
+            I&apos;m hiring
+          </a>
+        </div>
+      </div>
+
+      <div className={`${styles.half} ${styles.candidates}`}>
+        <div className={styles.inner}>
+          <p className={styles.audience}>For candidates</p>
+          <p className={styles.line} aria-hidden="true">
+            <span>The Right</span> <span>Fit.</span>
+          </p>
+          <p className={styles.copy}>
+            Tell us the work you want. We&apos;ll call you about roles that suit you, and it&apos;s
+            always free.
+          </p>
+          <a href={cvLink} className="btn">
+            I&apos;m looking for work
+          </a>
         </div>
       </div>
     </section>

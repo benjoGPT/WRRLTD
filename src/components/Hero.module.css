@@ -1,209 +1,154 @@
+/* Two halves, stacked on phones and side by side from 1024px. The seam is a
+   slanted edge on the navy half, matching the angle of the logo's W. */
 .hero {
   position: relative;
-  overflow: hidden;
-  padding-block: 48px 56px;
-  /* Faint diagonal pinstripes, like the logo's slanted strokes */
-  background:
-    radial-gradient(600px circle at var(--mx, 75%) var(--my, 20%), rgb(114 124 136 / 0.22), transparent 60%),
-    repeating-linear-gradient(115deg, transparent 0 46px, rgb(255 255 255 / 0.025) 46px 47px),
-    var(--navy);
+  display: grid;
+  background: var(--paper);
+}
+
+.half {
+  position: relative;
+  display: flex;
+  min-width: 0;
 }
 
 .inner {
-  position: relative;
-  display: grid;
-  gap: 40px;
-}
-
-.title {
-  font-size: clamp(2.125rem, 1.2rem + 4.4vw, 4.25rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-}
-
-/* Second line in the light steel tone of "POINT" in the logo */
-.accent {
-  color: var(--slate-on-navy);
-}
-
-.lede {
-  margin-top: 20px;
-  max-width: 46ch;
-  font-size: 1.125rem;
-  color: var(--slate-on-navy);
-}
-
-.placing {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0 8px;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 40px var(--gutter) 56px;
+}
+
+.employers {
+  background: var(--navy);
+  /* slanted bottom edge on phones */
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), 0 100%);
+  padding-bottom: 28px;
+  z-index: 1;
+}
+
+.candidates {
+  margin-top: -28px; /* tuck under the slant */
+}
+
+.candidates .inner {
+  padding-top: 64px;
+}
+
+.audience {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--slate-text);
 }
 
-.placing > span:last-child {
-  color: #9fc3ea;
+.employers .audience {
+  color: var(--steel);
 }
 
-/* Pulsing "live" dot */
-.dot {
-  width: 10px;
-  height: 10px;
-  background: #4ade80;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgb(74 222 128 / 0.6);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  to {
-    box-shadow: 0 0 0 10px rgb(74 222 128 / 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dot {
-    animation: none;
-  }
-}
-
-.buttons {
-  display: grid;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-/* ---------- Collage ---------- */
-
-/* Phones: three slanted tiles in a row under the text */
-.collage {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  height: 160px;
-  margin-inline: calc(var(--gutter) * -1);
-}
-
-.tile {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
-  background: var(--navy-mid);
-  /* Parallelogram, slanted like the strokes of the W */
-  clip-path: polygon(18% 0, 100% 0, 82% 100%, 0 100%);
-  transition: transform 300ms ease;
-}
-
-.tile:first-child {
-  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
-}
-
-.tile:last-child {
-  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-}
-
-.tile img {
-  transition: transform 600ms ease;
-}
-
-.tile figcaption {
-  position: absolute;
-  left: 20%;
-  bottom: 10px;
+/* The tagline, split across the halves */
+.line {
+  margin-top: 8px;
   font-family: var(--font-heading);
-  font-size: 0.5625rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: clamp(2.75rem, 1rem + 4.8vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--navy);
+}
+
+/* "The Right" over the second word, on both halves, so the lines pair up */
+.line span {
+  display: block;
+  white-space: nowrap;
+}
+
+.employers .line {
   color: var(--white);
-  text-shadow: 0 1px 6px rgb(0 0 0 / 0.6);
 }
 
-.tile:first-child figcaption {
-  left: 12px;
+.copy {
+  margin: 16px 0 28px;
+  max-width: 38ch;
+  font-size: 1.125rem;
+  color: var(--slate-text);
 }
 
-/* Darken photos slightly so they sit in the navy */
-.tile::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgb(7 40 75 / 0.65), transparent 55%);
-  pointer-events: none;
+.employers .copy {
+  color: var(--steel);
+}
+
+.inner :global(.btn) {
+  min-width: 220px;
+}
+
+/* One orchestrated entrance: the two halves arrive a beat apart */
+@media (prefers-reduced-motion: no-preference) {
+  .employers .inner > *,
+  .candidates .inner > * {
+    animation: rise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .candidates .inner > * {
+    animation-delay: 160ms;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 
 @media (min-width: 768px) {
-  .hero {
-    padding-block: 80px 88px;
+  .inner {
+    padding: 64px var(--gutter) 80px;
   }
 
-  .lede {
+  .candidates .inner {
+    padding-top: 96px;
+  }
+
+  .copy {
     font-size: 1.25rem;
   }
-
-  .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .collage {
-    height: 240px;
-    margin-inline: 0;
-  }
-
-  .tile figcaption {
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
-  }
 }
 
-/* Desktop: text left, tall staggered tiles right */
+/* Desktop: side by side, the navy half cut on the diagonal */
 @media (min-width: 1024px) {
   .hero {
-    padding-block: 96px 104px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: min(640px, calc(100dvh - var(--header-h) - 44px));
   }
 
+  .employers {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 120px) 100%, 0 100%);
+    padding-bottom: 0;
+    margin-right: -120px; /* overlap the light half by the width of the slant */
+  }
+
+  .candidates {
+    margin-top: 0;
+  }
+
+  /* Both halves start at the same height so the two lines read as one */
   .inner {
-    grid-template-columns: 1.1fr 1fr;
-    align-items: center;
-    gap: 48px;
+    justify-content: flex-start;
+    padding: 112px 0 112px;
   }
 
-  .collage {
-    height: 480px;
-    gap: 10px;
+  /* Each half's content lines up with the page's 1200px column */
+  .employers .inner {
+    padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2));
+    padding-right: 160px;
   }
 
-  .tile1 {
-    margin-top: 64px;
-  }
-
-  .tile2 {
-    margin-bottom: 40px;
-  }
-
-  .tile3 {
-    margin-top: 32px;
-    margin-bottom: -16px;
-  }
-
-  .tile:hover img {
-    transform: scale(1.06);
-  }
-
-  .tile figcaption {
-    bottom: 16px;
-    font-size: 0.75rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .collage {
-    height: 520px;
+  .candidates .inner {
+    padding-top: 112px;
+    /* clear the diagonal: the navy half overlaps this one by up to 120px */
+    padding-left: 168px;
+    padding-right: max(var(--gutter), calc((100vw - var(--container)) / 2));
   }
 }

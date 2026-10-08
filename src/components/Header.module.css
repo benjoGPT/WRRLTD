@@ -63,6 +63,16 @@
 }
 
 @media (min-width: 1024px) {
+  /* Three sections: logo left, links centred, actions right */
+  .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .actions {
+    justify-self: end;
+  }
+
   /* Smaller here so the logo, nav and button fit on one line */
   .logoLink img {
     height: 34px;
@@ -70,7 +80,6 @@
 
   .nav {
     display: block;
-    margin-left: auto;
   }
 
   .navList {
@@ -112,7 +121,7 @@
   }
 
   .actions {
-    margin-left: 12px;
+    margin-left: 0;
   }
 
   .actions .cv {
