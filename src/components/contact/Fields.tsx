@@ -224,10 +224,12 @@ export function Checkbox({
   name,
   error,
   children,
+  required = true,
 }: {
   name: string;
   error?: string;
   children: ReactNode;
+  required?: boolean;
 }) {
   const id = useId();
   return (
@@ -238,7 +240,7 @@ export function Checkbox({
           type="checkbox"
           name={name}
           value="yes"
-          required
+          required={required}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${id}-error` : undefined}
         />

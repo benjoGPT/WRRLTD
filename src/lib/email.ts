@@ -90,7 +90,8 @@ export function sendCandidateCv(data: CandidateData, cv: Attachment) {
     ["Sector", data.sector],
     ["Permanent / temporary", data.roleType],
     ["Message", data.message],
-    ["Consent to store details", "Yes (ticked on the form)"],
+    ["Read privacy notice and agreed to details being kept", "Yes (ticked on the form)"],
+    ["Wants job alert emails", data.jobAlerts === "yes" ? "Yes (opted in)" : "No"],
     ["CV", cv.filename],
   ]);
   return send(`New CV: ${data.name} (${data.sector})`, body, data.email, [cv]);

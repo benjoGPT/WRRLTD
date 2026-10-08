@@ -66,11 +66,15 @@ export function CandidateForm() {
         error={errors.message}
       />
       <Checkbox name="consent" error={errors.consent}>
-        I agree to {site.name} storing my details and CV to help me find work, as explained in the{" "}
+        I&apos;ve read the{" "}
         <Link href="/privacy" target="_blank">
           privacy notice<span className="sr-only"> (opens in a new tab)</span>
-        </Link>
-        .
+        </Link>{" "}
+        and I&apos;m happy for {site.name} to keep my details and CV to help me find work.
+      </Checkbox>
+      {/* Marketing consent must be separate, optional and unticked (PECR). */}
+      <Checkbox name="jobAlerts" required={false}>
+        Email me about new jobs that might suit me (optional). You can unsubscribe at any time.
       </Checkbox>
 
       <FormStatus status={status} errorCount={Object.keys(errors).length} serverMessage={serverMessage} />
