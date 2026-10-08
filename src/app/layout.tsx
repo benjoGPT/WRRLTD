@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
 import { Header } from "@/components/Header";
 import { ScrollEffects } from "@/components/ScrollEffects";
+import { CookieBanner } from "@/components/cookies/CookieBanner";
 import "./globals.css";
 
 // Fonts are downloaded at build time and served from our own domain, so
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <BackToTop />
         <ScrollEffects />
+        {site.cookieBanner && <CookieBanner />}
       </body>
     </html>
   );
