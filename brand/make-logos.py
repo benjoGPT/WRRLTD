@@ -123,6 +123,10 @@ def main() -> None:
 
     print("stacked", stacked.size, "horizontal", horiz.size)
 
+    # Re-bundle the share-image logo (see scripts/make-og-assets.py)
+    import runpy
+    runpy.run_path(str(ROOT / "scripts" / "make-og-assets.py"))
+
 
 if __name__ == "__main__":
     main()

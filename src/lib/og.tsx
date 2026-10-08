@@ -1,6 +1,5 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import { logoPng, sora600, sora800 } from "./og-assets";
 
 /**
  * Draws the preview image shown when a page is shared on social media or in
@@ -10,15 +9,14 @@ import { ImageResponse } from "next/og";
 
 export const ogSize = { width: 1200, height: 630 };
 
-const fontDir = join(process.cwd(), "node_modules/@fontsource/sora/files");
+// Fonts and logo are bundled into the code (og-assets.ts) rather than read
+// from disk, because Cloudflare Workers has no file system.
+const fromBase64 = (b64: string) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer;
 
 export async function renderOg(title: string, subtitle: string) {
-  const [semiBold, extraBold, logo] = await Promise.all([
-    readFile(join(fontDir, "sora-latin-600-normal.woff")),
-    readFile(join(fontDir, "sora-latin-800-normal.woff")),
-    readFile(join(process.cwd(), "src/assets/logo-horizontal-white.png")),
-  ]);
-  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+  const semiBold = fromBase64(sora600);
+  const extraBold = fromBase64(sora800);
+  const logoSrc = `data:image/png;base64,${logoPng}`;
   // Long titles get a smaller size so they stay within three lines
   const titleSize = title.length > 34 ? 64 : 80;
 

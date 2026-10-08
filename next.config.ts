@@ -2,8 +2,9 @@ import type { NextConfig } from "next";
 import { site } from "./src/config/site";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Cache Components (and partial prefetching, which needs it) are left off:
+  // they rely on timer behaviour that Cloudflare Workers doesn't have, and
+  // every page here is built ahead of time anyway.
   poweredByHeader: false,
 
   async headers() {
