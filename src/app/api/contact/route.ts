@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendCandidateCv, sendEmployerEnquiry } from "@/lib/email";
+import { TURNSTILE_FIELD, verifyTurnstile } from "@/lib/turnstile";
 import {
   HONEYPOT_FIELD,
   MIN_FILL_MS,
@@ -44,6 +45,16 @@ export async function POST(request: Request) {
   const started = Number(form.get(STARTED_FIELD));
   if ((typeof honeypot === "string" && honeypot.trim() !== "") || (started && Date.now() - started < MIN_FILL_MS)) {
     return reply(200, { ok: true });
+  }
+
+  // Cloudflare Turnstile bot check (skipped until the keys are set up)
+  const human = await verifyTurnstile(form.get(TURNSTILE_FIELD), request.headers.get("cf-connecting-ip"));
+  if (!human.ok) {
+    console.warn("Contact form: Turnstile check failed", human.reason);
+    return reply(403, {
+      ok: false,
+      message: "We couldn't confirm you're not a robot. Please try again.",
+    });
   }
 
   const fields = Object.fromEntries(

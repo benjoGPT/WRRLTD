@@ -59,6 +59,16 @@ export default function CookiesPage() {
         </table>
       </div>
 
+      <h3>Spam protection on our forms</h3>
+      {/* TODO: check this against Cloudflare's current Turnstile privacy information before launch. */}
+      <p>
+        Our forms use Cloudflare Turnstile to check that a real person is sending them. When you open
+        a page with a form, it runs a short check in your browser and may store a small amount of
+        information there to do so. It&apos;s used only to stop spam and keep the forms secure, which
+        is strictly necessary for the service you&apos;re asking for, so it doesn&apos;t need your
+        consent.
+      </p>
+
       <h3>Analytics and marketing cookies</h3>
       <p>
         We don&apos;t use any yet. If we add them, for example to count visits or measure our job

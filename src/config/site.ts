@@ -63,6 +63,16 @@ export const site = {
    */
   showExampleJobs: true,
 
+  /**
+   * Cloudflare Turnstile site key (public, safe to commit): the bot check on
+   * both forms. Get it from Cloudflare: Turnstile → Add widget, with the
+   * site's domains (and the workers.dev address while testing). The matching
+   * secret key goes in Cloudflare as the TURNSTILE_SECRET_KEY secret.
+   * Leave empty to switch the check off; the hidden spam traps still work.
+   * TODO: add the real key.
+   */
+  turnstileSiteKey: "",
+
   // Largest CV we accept, in megabytes. Vercel rejects request bodies over
   // 4.5MB, so 4MB leaves room for the rest of the form.
   // TODO: can go up to 5 if the site is hosted on Cloudflare instead.

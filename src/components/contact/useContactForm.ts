@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { flushSync } from "react-dom";
 import { useRouter } from "next/navigation";
 import { checkCvFile, type FieldErrors } from "@/lib/formRules";
+import { TURNSTILE_RESET_EVENT, waitForTurnstile } from "./Turnstile";
 
 type Status = "idle" | "sending" | "error";
 
@@ -55,10 +56,14 @@ export function useContactForm(kind: "employer" | "candidate") {
     // 2. Send to the server, which checks everything again.
     setStatus("sending");
     setServerMessage("");
+    // Give the background bot check a moment to finish, then read the form
+    // again so its token is included.
+    await waitForTurnstile(form);
+    const body = new FormData(form);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        body: data,
+        body,
         headers: { Accept: "application/json" },
       });
       const json = (await res.json().catch(() => ({}))) as {
@@ -78,6 +83,8 @@ export function useContactForm(kind: "employer" | "candidate") {
     } catch {
       setStatus("error");
     }
+    // A bot-check token only works once, so get a fresh one for the next try
+    form.dispatchEvent(new Event(TURNSTILE_RESET_EVENT));
   }
 
   return { errors, status, serverMessage, onSubmit, startedRef };

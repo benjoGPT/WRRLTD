@@ -150,8 +150,9 @@ export default function PrivacyPage() {
         <li>HMRC, the Home Office and other authorities, where the law requires it</li>
         {/* TODO: name the actual providers once chosen. */}
         <li>
-          the companies that run our systems: website hosting (TBC), our email service (TBC), and
-          Resend, which delivers messages sent through our website forms
+          the companies that run our systems: Cloudflare, which hosts our website and checks that
+          our forms are sent by real people (Turnstile), our email service (TBC), and Resend, which
+          delivers messages sent through our website forms
         </li>
       </ul>
       <p>We never sell your information.</p>

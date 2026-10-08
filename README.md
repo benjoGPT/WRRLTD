@@ -192,6 +192,7 @@ Set these in `.env.local` locally, and in Cloudflare for the live site
 | `RESEND_API_KEY`     | Yes    | API key from resend.com                                 |
 | `CONTACT_TO_EMAIL`   | Yes    | Where submissions go (comma-separate several addresses) |
 | `CONTACT_FROM_EMAIL` | Later  | Sender once the domain is verified in Resend            |
+| `TURNSTILE_SECRET_KEY` | Yes | Bot check secret (Secret). Its site key goes in `site.ts` |
 
 ## Before launch
 
@@ -247,6 +248,15 @@ Pages: `/privacy`, `/cookies`, `/terms`, `/complaints`, `/equal-opportunities`
 - [ ] Company registered, insurance in place, terms of business and worker
       contracts written, Key Information Document ready
 - [ ] GLAA licence if supplying food processing or packing workers
+
+### Spam protection (Cloudflare Turnstile)
+
+- [ ] In Cloudflare: Turnstile → Add widget. Add the site's domain and the
+      `workers.dev` address, mode "Managed".
+- [ ] Put the site key in `turnstileSiteKey` in `src/config/site.ts`.
+- [ ] Add the secret key in Cloudflare as the `TURNSTILE_SECRET_KEY` secret.
+- [ ] Send a test from each form on the live site. In the Turnstile dashboard,
+      check the requests show up as solved.
 
 ### Email (Resend)
 

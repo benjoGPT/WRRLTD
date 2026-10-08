@@ -5,6 +5,7 @@ import { sectorOptions } from "@/lib/formRules";
 import { FormStatus } from "./FormStatus";
 import { RadioGroup, SelectField, TextArea, TextField } from "./Fields";
 import { SpamTrap } from "./SpamTrap";
+import { Turnstile } from "./Turnstile";
 import { useContactForm } from "./useContactForm";
 import { usePrefillSector } from "./usePrefillSector";
 import styles from "./Form.module.css";
@@ -59,6 +60,7 @@ export function EmployerForm() {
         error={errors.message}
       />
 
+      <Turnstile />
       <FormStatus status={status} errorCount={Object.keys(errors).length} serverMessage={serverMessage} />
       <button type="submit" className={`btn ${styles.submit}`} disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send enquiry"}
