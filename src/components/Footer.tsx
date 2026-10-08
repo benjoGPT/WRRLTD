@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 import { legalPages } from "@/lib/legal";
-import { cvLink, hireLink, navLinks } from "@/lib/nav";
+import { cvLink, footerLinks, hireLink, navLinks } from "@/lib/nav";
 import { sectors } from "@/lib/sectors";
 import { CookieSettingsButton } from "./cookies/CookieSettingsButton";
 import { Logo } from "./Logo";
@@ -33,7 +33,7 @@ export function Footer() {
 
           <nav aria-label="Pages" className={styles.pages}>
             <ul>
-              {navLinks.map((l) => (
+              {[...navLinks, ...footerLinks].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href}>{l.label}</Link>
                 </li>

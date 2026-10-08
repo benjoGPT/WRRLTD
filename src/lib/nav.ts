@@ -1,11 +1,17 @@
 // Main navigation: one page per topic.
 export const navLinks = [
+  { label: "Jobs", href: "/jobs" },
   { label: "Employers", href: "/employers" },
   { label: "Candidates", href: "/candidates" },
   { label: "Sectors", href: "/sectors" },
   { label: "About", href: "/about" },
-  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
+];
+
+// Extra pages listed in the footer
+export const footerLinks = [
+  { label: "FAQ", href: "/faq" },
+  { label: "Guides", href: "/guides" },
 ];
 
 // Where the two main buttons go: straight to each page's form.

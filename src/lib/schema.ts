@@ -1,6 +1,8 @@
 import { site, siteUrl } from "@/config/site";
 import type { Faq } from "./faqs";
+import type { Job } from "./jobs";
 import { sectorNames, type Sector } from "./sectors";
+import { founders, fullName } from "./team";
 
 /**
  * Structured data (JSON-LD) for search engines. Each builder returns a plain
@@ -31,6 +33,7 @@ export function organizationSchema() {
     },
     areaServed: { "@type": "Country", name: "United Kingdom" },
     knowsAbout: sectorNames,
+    founder: founders.map((f) => ({ "@type": "Person", name: fullName(f), jobTitle: f.role })),
   };
 }
 
@@ -82,5 +85,44 @@ export function sectorServiceSchema(sector: Sector) {
     provider: { "@id": orgId },
     areaServed: { "@type": "Country", name: "United Kingdom" },
     url: `${siteUrl}/sectors/${sector.slug}`,
+  };
+}
+
+const employmentType = { Permanent: "FULL_TIME", Temporary: "TEMPORARY", "Temp to perm": "TEMPORARY" } as const;
+
+/** Google job search data for a real vacancy. Never used for example jobs. */
+export function jobPostingSchema(job: Job) {
+  const description = [
+    `<p>${job.summary}</p>`,
+    `<p><strong>What you'll do</strong></p><ul>${job.duties.map((d) => `<li>${d}</li>`).join("")}</ul>`,
+    `<p><strong>What you'll need</strong></p><ul>${job.requirements.map((r) => `<li>${r}</li>`).join("")}</ul>`,
+    `<p>Hours: ${job.hours}</p>`,
+  ].join("");
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description,
+    datePosted: job.posted,
+    ...(job.closes && { validThrough: `${job.closes}T23:59:59` }),
+    employmentType: employmentType[job.type],
+    hiringOrganization: { "@type": "Organization", name: site.name, sameAs: siteUrl, logo: `${siteUrl}/logo.png` },
+    jobLocation: {
+      "@type": "Place",
+      address: { "@type": "PostalAddress", addressLocality: job.location.split(",")[0], addressCountry: "GB" },
+    },
+    ...(job.payMin && {
+      baseSalary: {
+        "@type": "MonetaryAmount",
+        currency: "GBP",
+        value: {
+          "@type": "QuantitativeValue",
+          ...(job.payMax ? { minValue: job.payMin, maxValue: job.payMax } : { value: job.payMin }),
+          unitText: job.payUnit ?? "HOUR",
+        },
+      },
+    }),
+    identifier: { "@type": "PropertyValue", name: site.name, value: job.slug },
+    url: `${siteUrl}/jobs/${job.slug}`,
   };
 }

@@ -12,7 +12,7 @@ import { usePrefillSector } from "./usePrefillSector";
 import styles from "./Form.module.css";
 
 /** Form for people looking for work, with a CV upload. */
-export function CandidateForm() {
+export function CandidateForm({ jobRef }: { jobRef?: string }) {
   const { errors, status, serverMessage, onSubmit, startedRef } = useContactForm("candidate");
   const formRef = useRef<HTMLFormElement>(null);
   usePrefillSector(formRef);
@@ -29,6 +29,7 @@ export function CandidateForm() {
       aria-label="Send your CV"
     >
       <input type="hidden" name="formType" value="candidate" />
+      {jobRef && <input type="hidden" name="jobRef" value={jobRef} />}
       <SpamTrap startedRef={startedRef} />
 
       <TextField name="name" label="Your name" autoComplete="name" error={errors.name} />
@@ -84,7 +85,7 @@ export function CandidateForm() {
 
       <FormStatus status={status} errorCount={Object.keys(errors).length} serverMessage={serverMessage} />
       <button type="submit" className={`btn ${styles.submit}`} disabled={status === "sending"}>
-        {status === "sending" ? "Sending…" : "Send my CV"}
+        {status === "sending" ? "Sending…" : jobRef ? "Apply for this job" : "Send my CV"}
       </button>
     </form>
   );

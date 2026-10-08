@@ -84,6 +84,7 @@ export function sendEmployerEnquiry(data: EmployerData) {
 
 export function sendCandidateCv(data: CandidateData, cv: Attachment) {
   const body = table([
+    ["Applying for", data.jobRef || "General application"],
     ["Name", data.name],
     ["Email", data.email],
     ["Phone", data.phone],
@@ -94,5 +95,6 @@ export function sendCandidateCv(data: CandidateData, cv: Attachment) {
     ["Wants job alert emails", data.jobAlerts === "yes" ? "Yes (opted in)" : "No"],
     ["CV", cv.filename],
   ]);
-  return send(`New CV: ${data.name} (${data.sector})`, body, data.email, [cv]);
+  const subject = data.jobRef ? `Application: ${data.jobRef} (${data.name})` : `New CV: ${data.name} (${data.sector})`;
+  return send(subject, body, data.email, [cv]);
 }

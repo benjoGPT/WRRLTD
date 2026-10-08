@@ -55,6 +55,14 @@ export const site = {
    */
   cookieBanner: true,
 
+  /**
+   * Shows the example vacancies in src/lib/jobs.ts so the jobs board can be
+   * reviewed before real jobs exist. They're labelled "Example" on screen and
+   * never sent to Google.
+   * TODO: set to false (or delete the examples) before launch.
+   */
+  showExampleJobs: true,
+
   // Largest CV we accept, in megabytes. Vercel rejects request bodies over
   // 4.5MB, so 4MB leaves room for the rest of the form.
   // TODO: can go up to 5 if the site is hosted on Cloudflare instead.

@@ -63,6 +63,8 @@ export const candidateSchema = z.object({
   message: z.string().trim().max(2000, tooLong).optional(),
   consent: z.literal("yes", { error: "Please tick the box to agree before sending." }),
   jobAlerts: z.literal("yes").optional(),
+  // Set when applying from a job page
+  jobRef: z.string().trim().max(160).optional(),
 });
 
 export type EmployerData = z.infer<typeof employerSchema>;
