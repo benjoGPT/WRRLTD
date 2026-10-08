@@ -22,7 +22,8 @@ Other commands:
 
 | Command         | What it does                                   |
 | --------------- | ---------------------------------------------- |
-| `npm run build` | Builds the production site (run before pushing) |
+| `npm run build` | Builds the site for Cloudflare (run before pushing) |
+| `npm run build:next` | Plain Next.js build, without the Cloudflare step |
 | `npm run start` | Serves the production build locally            |
 | `npm run lint`  | Checks the code for common mistakes            |
 | `npm run preview` | Builds for Cloudflare and runs it locally (closest to live) |
@@ -154,12 +155,17 @@ Files involved:
 
 Dashboard settings (Workers & Pages → wrrltd → Settings → Build):
 
-| Setting         | Value                              |
-| --------------- | ---------------------------------- |
-| Build command   | `npx opennextjs-cloudflare build`  |
-| Deploy command  | `npx opennextjs-cloudflare deploy` |
-| Root directory  | `/`                                |
-| Production branch | `main`                           |
+| Setting           | Value                |
+| ----------------- | -------------------- |
+| Build command     | `npm run build`      |
+| Deploy command    | `npx wrangler deploy` |
+| Root directory    | `/`                  |
+| Production branch | `main`               |
+
+`npm run build` runs the OpenNext adapter, which runs `next build` and then
+packages the result as a Worker in `.open-next/`. `wrangler deploy` spots the
+OpenNext project and uploads it. (`npx opennextjs-cloudflare build` and
+`npx opennextjs-cloudflare deploy` work too; they do the same thing.)
 
 Two settings in `next.config.ts` matter here: Cache Components stays off (it
 needs timer behaviour Workers doesn't have), and the share images load their

@@ -4,7 +4,13 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 import staticAssetsIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/static-assets-incremental-cache";
 
-export default defineCloudflareConfig({
+const config = defineCloudflareConfig({
   incrementalCache: staticAssetsIncrementalCache,
   enableCacheInterception: true,
 });
+
+// `npm run build` runs this adapter, so the adapter must call Next.js
+// directly rather than `npm run build`, or it would call itself forever.
+config.buildCommand = "npx next build";
+
+export default config;
