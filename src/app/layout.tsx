@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree, Sora } from "next/font/google";
+import { Red_Hat_Display, Red_Hat_Text } from "next/font/google";
 import { site, siteUrl } from "@/config/site";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -10,16 +10,16 @@ import "./globals.css";
 
 // Fonts are downloaded at build time and served from our own domain, so
 // there's no request to Google when someone visits the site.
-// Sora for headings: wide and geometric, like the logo's wordmark.
-const sora = Sora({
-  variable: "--font-sora",
+// Red Hat Display for headings and Red Hat Text for body copy: a matched
+// pair, so headings and text feel like one family. Text is drawn for small
+// sizes and stays easy to read on phones.
+const display = Red_Hat_Display({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
 });
 
-// Figtree for body text: clean and easy to read at small sizes.
-const figtree = Figtree({
-  variable: "--font-figtree",
+const text = Red_Hat_Text({
+  variable: "--font-text",
   subsets: ["latin"],
 });
 
@@ -48,7 +48,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-GB" className={`${sora.variable} ${figtree.variable}`}>
+    <html lang="en-GB" className={`${display.variable} ${text.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content

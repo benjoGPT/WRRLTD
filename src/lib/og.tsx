@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { logoPng, sora600, sora800 } from "./og-assets";
+import { display600, display800, logoPng } from "./og-assets";
 
 /**
  * Draws the preview image shown when a page is shared on social media or in
@@ -14,8 +14,8 @@ export const ogSize = { width: 1200, height: 630 };
 const fromBase64 = (b64: string) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer;
 
 export async function renderOg(title: string, subtitle: string) {
-  const semiBold = fromBase64(sora600);
-  const extraBold = fromBase64(sora800);
+  const semiBold = fromBase64(display600);
+  const extraBold = fromBase64(display800);
   const logoSrc = `data:image/png;base64,${logoPng}`;
   // Long titles get a smaller size so they stay within three lines
   const titleSize = title.length > 34 ? 64 : 80;
@@ -32,7 +32,7 @@ export async function renderOg(title: string, subtitle: string) {
           padding: "72px 80px",
           background: "#07284b",
           color: "#ffffff",
-          fontFamily: "Sora",
+          fontFamily: "Red Hat Display",
           position: "relative",
         }}
       >
@@ -53,8 +53,8 @@ export async function renderOg(title: string, subtitle: string) {
     {
       ...ogSize,
       fonts: [
-        { name: "Sora", data: semiBold, weight: 600, style: "normal" },
-        { name: "Sora", data: extraBold, weight: 800, style: "normal" },
+        { name: "Red Hat Display", data: semiBold, weight: 600, style: "normal" },
+        { name: "Red Hat Display", data: extraBold, weight: 800, style: "normal" },
       ],
     },
   );

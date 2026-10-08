@@ -30,8 +30,8 @@
   --focus: var(--navy);
 
   /* Type */
-  --font-heading: var(--font-sora), "Arial", sans-serif;
-  --font-body: var(--font-figtree), "Arial", sans-serif;
+  --font-heading: var(--font-display), "Arial", sans-serif;
+  --font-body: var(--font-text), "Arial", sans-serif;
 
   /* Layout */
   --container: 1200px;
@@ -198,6 +198,7 @@ p {
 
 .section-title {
   font-size: clamp(2rem, 1.3rem + 2.8vw, 3.25rem);
+  font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.03em;
   overflow-wrap: anywhere;
@@ -328,4 +329,37 @@ p {
 .btn[disabled] {
   opacity: 0.6;
   cursor: progress;
+}
+
+/* ---------- Reading progress (guides and job pages) ---------- */
+
+/* A thin navy bar along the top that fills as you read. Hidden in browsers
+   without scroll-driven animations and for reduced motion. */
+.reading-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reading-progress {
+      display: block;
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 60;
+      height: 4px;
+      background: var(--navy);
+      transform-origin: left;
+      animation: read linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes read {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
