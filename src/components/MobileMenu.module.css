@@ -103,3 +103,7 @@
     display: none;
   }
 }
+
+.link[aria-current="page"] {
+  color: var(--steel);
+}

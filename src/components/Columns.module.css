@@ -1,0 +1,56 @@
+/* Two short text columns, e.g. permanent vs temporary */
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+
+.column {
+  padding-top: 16px;
+  border-top: 2px solid var(--navy);
+}
+
+.column h3 {
+  font-size: 1.25rem;
+}
+
+.column p,
+.column ul {
+  margin-top: 8px;
+  color: var(--slate-text);
+}
+
+.column ul {
+  padding-left: 1.1rem;
+}
+
+.column li {
+  margin-top: 4px;
+}
+
+@media (min-width: 768px) {
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+
+.column a {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* A few paragraphs of running text */
+.prose {
+  display: grid;
+  gap: 18px;
+  max-width: 62ch;
+  font-size: 1.0625rem;
+  color: var(--slate-text);
+}
+
+.lead {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--ink);
+}

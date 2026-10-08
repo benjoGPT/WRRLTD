@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 import { TopBar } from "./TopBar";
-import { cvLink, navLinks } from "@/lib/nav";
+import { cvLink } from "@/lib/nav";
+import { NavLinks } from "./NavLinks";
 import styles from "./Header.module.css";
 
 /**
@@ -21,15 +22,7 @@ export function Header() {
           </Link>
 
           <nav className={styles.nav} aria-label="Main">
-            <ul className={styles.navList}>
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className={styles.navLink}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <NavLinks listClassName={styles.navList} linkClassName={styles.navLink} />
           </nav>
 
           <div className={styles.actions}>

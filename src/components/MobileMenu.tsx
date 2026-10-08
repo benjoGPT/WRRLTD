@@ -3,7 +3,8 @@
 import { useRef, type ReactNode } from "react";
 import { Mail, Menu, Phone, X } from "lucide-react";
 import { site } from "@/config/site";
-import { cvLink, navLinks } from "@/lib/nav";
+import { cvLink } from "@/lib/nav";
+import { NavLinks } from "./NavLinks";
 import styles from "./MobileMenu.module.css";
 
 /**
@@ -41,15 +42,7 @@ export function MobileMenu({ logo }: { logo: ReactNode }) {
         </div>
 
         <nav aria-label="Main">
-          <ul className={styles.list}>
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className={styles.link} onClick={close}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <NavLinks listClassName={styles.list} linkClassName={styles.link} onNavigate={close} />
         </nav>
 
         <div className={styles.footer}>

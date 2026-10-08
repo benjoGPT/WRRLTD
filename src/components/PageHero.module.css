@@ -1,0 +1,132 @@
+.hero {
+  display: grid;
+  background: var(--navy);
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.textInner {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding: 32px var(--gutter) 48px;
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: 0.875rem;
+  color: var(--steel);
+}
+
+.crumbs li + li::before {
+  content: "/";
+  margin-right: 8px;
+  color: var(--slate-on-navy);
+}
+
+.crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--steel);
+  text-underline-offset: 3px;
+}
+
+.crumbs a:hover {
+  color: var(--white);
+}
+
+.crumbs [aria-current] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--white);
+}
+
+.title {
+  font-size: clamp(2.25rem, 1.3rem + 4vw, 4rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  max-width: 16ch;
+  overflow-wrap: anywhere;
+}
+
+.intro {
+  margin-top: 16px;
+  max-width: 50ch;
+  font-size: 1.125rem;
+  color: var(--steel);
+}
+
+.actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--navy-mid);
+}
+
+@media (min-width: 768px) {
+  .textInner {
+    padding: 48px var(--gutter) 72px;
+  }
+
+  .intro {
+    font-size: 1.25rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+/* Desktop with a photo: text on the navy half, photo on the other,
+   split by the same slant as the home page hero */
+@media (min-width: 1024px) {
+  .withPhoto {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 480px;
+  }
+
+  .withPhoto .text {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 96px) 100%, 0 100%);
+    margin-right: -96px;
+    background: var(--navy);
+  }
+
+  .withPhoto .textInner {
+    max-width: none;
+    margin: 0;
+    padding: 64px 140px 80px max(var(--gutter), calc((100vw - var(--container)) / 2));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .withPhoto .media {
+    aspect-ratio: auto;
+  }
+}
+
+.intro a {
+  color: var(--white);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}

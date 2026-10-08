@@ -1,0 +1,35 @@
+.white {
+  background: var(--white);
+}
+
+.paper {
+  background: var(--paper);
+}
+
+.navy {
+  background: var(--navy);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+.head,
+.body {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 80px;
+    align-items: start;
+  }
+
+  .head {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+  }
+}
