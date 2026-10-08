@@ -1,7 +1,5 @@
 .section {
-  background:
-    linear-gradient(115deg, transparent 62%, rgb(7 40 75 / 0.04) 62%),
-    var(--tint);
+  background: var(--paper);
 }
 
 .layout {

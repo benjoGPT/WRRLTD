@@ -1,140 +1,103 @@
 .footer {
   background: var(--navy-deep);
-  padding-top: 56px;
-  /* On phones, leave room so the sticky CV bar doesn't cover the legal text */
+  padding-top: 64px;
+  /* On phones, leave room so the sticky CV bar doesn't cover the small print */
   padding-bottom: calc(96px + env(safe-area-inset-bottom));
-  font-size: 0.9375rem;
 }
 
-.grid {
+/* The closing line is the footer's main element */
+.statement {
+  max-width: 20ch;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.ctas {
   display: grid;
-  gap: 40px;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.meta {
+  display: grid;
+  gap: 32px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid rgb(255 255 255 / 0.15);
 }
 
 .logo {
   display: inline-flex;
-  height: 96px;
+  height: 88px;
+  justify-self: start;
 }
 
-.tagline {
-  max-width: 17ch;
-  margin-top: 16px;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.125rem;
+.contact {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  color: var(--steel);
 }
 
-.heading {
-  font-size: 0.8125rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--slate-on-navy);
-  margin-bottom: 12px;
+.contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--white);
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
-.list {
+.contact a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sectors ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 18px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.link,
-.contact {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px; /* tap targets */
-  color: var(--white);
-  text-decoration: none;
-  overflow-wrap: anywhere;
-}
-
-.contact svg {
-  flex: none;
-  color: var(--slate-on-navy);
-}
-
-a.link:hover,
-a.contact:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.policies {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 20px;
-  list-style: none;
-  margin: 0 0 8px;
-  padding: 0;
-}
-
-.policies a,
-.cookieButton {
+.sectors a {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
+  min-height: 40px;
+  color: var(--steel);
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+
+.sectors a:hover {
   color: var(--white);
-  font: inherit;
-  font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
-  cursor: pointer;
 }
 
 .legal {
   display: grid;
   gap: 8px;
-  margin-top: 48px;
+  margin-top: 40px;
   padding-top: 24px;
   border-top: 1px solid rgb(255 255 255 / 0.15);
   color: var(--slate-on-navy);
   font-size: 0.875rem;
 }
 
-@media (min-width: 768px) {
-  .footer {
-    padding-top: 72px;
-    padding-bottom: 40px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 48px;
-  }
-
-  .sectorList {
-    columns: 2;
-    column-gap: 24px;
-  }
-
-  .link {
-    min-height: 36px;
-  }
-}
-
-/* Laptops: brand, contact and links on top; sectors in a full-width row */
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .sectors {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-
-  .sectorList {
-    columns: 4;
-  }
-
-  .policies {
+.policies {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 20px;
+  gap: 0 20px;
   list-style: none;
   margin: 0 0 8px;
   padding: 0;
@@ -156,28 +119,23 @@ a.contact:hover {
   cursor: pointer;
 }
 
-.legal {
-    margin-top: 64px;
+@media (min-width: 768px) {
+  .footer {
+    padding-top: 96px;
+    padding-bottom: 40px;
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 }
 
-/* Large screens: everything in one row */
-@media (min-width: 1280px) {
-  .grid {
-    grid-template-columns: 2.5fr 4fr 6fr 2fr;
-    column-gap: 40px;
-  }
-
-  .sectors {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .sectorList {
-    columns: 2;
-  }
-
-  .sectorList .link {
-    white-space: nowrap;
+@media (min-width: 1024px) {
+  .meta {
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 64px;
+    margin-top: 80px;
   }
 }

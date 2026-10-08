@@ -22,7 +22,6 @@ export function LegalPage({
     <main id="main">
       <div className={`${styles.band} on-dark`}>
         <div className="container">
-          <p className="eyebrow">Policies</p>
           <h1 className={styles.title}>{title}</h1>
           <p className={styles.meta}>Last updated: {policiesLastUpdated}</p>
         </div>

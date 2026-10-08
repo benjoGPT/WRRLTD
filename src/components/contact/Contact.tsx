@@ -66,7 +66,6 @@ export function Contact() {
 
       <div className={`container ${styles.layout}`}>
         <div className={styles.head}>
-          <p className="eyebrow">Contact</p>
           <h2 id="contact-title" className="section-title">
             Get in touch
           </h2>

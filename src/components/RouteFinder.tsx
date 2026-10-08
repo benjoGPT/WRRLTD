@@ -32,7 +32,6 @@ export function RouteFinder() {
     <section className={`section ${styles.section}`} aria-labelledby="finder-title">
       <div className={`container ${styles.layout}`}>
         <div className={styles.intro}>
-          <p className="eyebrow">Find your route</p>
           <h2 id="finder-title" className="section-title">
             Two quick questions
           </h2>
@@ -110,7 +109,6 @@ export function RouteFinder() {
               </p>
               <button type="button" className="btn" onClick={() => openForm(kind, sector)}>
                 {kind === "employer" ? "Continue to the employer form" : "Continue to send your CV"}
-                <ArrowRight size={18} aria-hidden="true" />
               </button>
             </div>
           )}

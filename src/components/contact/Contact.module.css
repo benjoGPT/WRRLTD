@@ -87,6 +87,12 @@
   flex: none;
 }
 
+/* The long email address fits on one line on small phones */
+a.asideLink[href^="mailto:"] {
+  font-size: 0.875rem;
+  overflow-wrap: normal;
+}
+
 a.asideLink:hover {
   text-decoration: underline;
   text-underline-offset: 3px;

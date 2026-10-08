@@ -93,7 +93,6 @@ export function Faq() {
     <section id="faq" className="section section--tint" aria-labelledby="faq-title">
       <div className={`container ${styles.grid}`}>
         <div>
-          <p className="eyebrow">FAQ</p>
           <h2 id="faq-title" className="section-title">
             Common questions
           </h2>
