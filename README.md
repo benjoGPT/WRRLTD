@@ -87,6 +87,12 @@ place, so the layout always looks finished. Photographers are credited on
 /privacy. Before launch, check each photo's Unsplash page still shows the free
 Unsplash License, and use real photos of the client's work if they have any.
 
+## Social media images
+
+`python3 brand/make-logos.py` also makes `brand/social/`: profile pictures
+(`profile-navy.png`, `profile-white.png`, both safe for circular crops) and a
+`cover-1584x396.png` banner for LinkedIn.
+
 ## Environment variables
 
 Set these in `.env.local` locally, and in the hosting dashboard for the live site.
@@ -129,15 +135,29 @@ See `.env.example` for details.
 - [ ] What happens after a CV is sent (`Faq.tsx`)
 - [ ] Street address and postcode for the JSON-LD, if they want them shown (`JsonLd.tsx`)
 
-### Privacy notice (`src/app/privacy/page.tsx`)
+### Policies (all drafts: have them reviewed by someone qualified)
 
-- [ ] ICO registration number (most recruiters must pay the ICO data protection fee)
-- [ ] How long candidate and employer data is kept
-- [ ] Hosting and email providers used, and their safeguards for data outside the UK
-- [ ] Lawful bases checked
-- [ ] "Last updated" date
-- [ ] **Have the whole notice reviewed by someone qualified.** It's a starting
-      draft, not legal advice.
+Pages: `/privacy`, `/cookies`, `/terms`, `/complaints`, `/equal-opportunities`
+(shared layout in `src/components/LegalPage.tsx`, list in `src/lib/legal.ts`).
+
+- [ ] ICO registration number (the data protection fee is £52 a year for a micro business)
+- [ ] Retention periods for candidate and employer data
+- [ ] Hosting and email providers named, with their safeguards for data outside the UK
+- [ ] Complaints timescales and who handles them
+- [ ] "Last updated" date in `src/lib/legal.ts`
+
+### Cookies
+
+- [ ] Banner is on (`cookieBanner` in `src/config/site.ts`). Legally it's only
+      needed once optional cookies are used; it's ready for analytics.
+- [ ] When adding analytics: wrap the script in `<ConsentGate category="analytics">`
+      and list its cookies on `/cookies`.
+
+### Business (see the legal and compliance briefing)
+
+- [ ] Company registered, insurance in place, terms of business and worker
+      contracts written, Key Information Document ready
+- [ ] GLAA licence if supplying food processing or packing workers
 
 ### Email (Resend)
 

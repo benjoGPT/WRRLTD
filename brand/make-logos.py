@@ -100,6 +100,27 @@ def main() -> None:
         canvas.alpha_composite(m, ((size - m.width) // 2, (size - m.height) // 2))
         canvas.convert("RGB").save(ROOT / "src" / "app" / name, optimize=True)
 
+    # 5. Social media: profile pictures (safe for circular crops) and a cover
+    social = ROOT / "brand" / "social"
+    social.mkdir(exist_ok=True)
+    navy = (7, 40, 75, 255)
+    for name, bg, art in [
+        ("profile-navy.png", navy, to_white(mark)),
+        ("profile-white.png", (255, 255, 255, 255), mark),
+    ]:
+        size = 1080
+        canvas = Image.new("RGBA", (size, size), bg)
+        m = art.copy()
+        m.thumbnail((round(size * 0.62), round(size * 0.62)), Image.LANCZOS)  # inside the circle
+        canvas.alpha_composite(m, ((size - m.width) // 2, (size - m.height) // 2))
+        canvas.convert("RGB").save(social / name, optimize=True)
+    # LinkedIn-style cover: white logo on navy, kept away from the edges
+    cover = Image.new("RGBA", (1584, 396), navy)
+    logo_w = to_white(horiz)
+    logo_w.thumbnail((900, 120), Image.LANCZOS)
+    cover.alpha_composite(logo_w, ((1584 - logo_w.width) // 2, (396 - logo_w.height) // 2))
+    cover.convert("RGB").save(social / "cover-1584x396.png", optimize=True)
+
     print("stacked", stacked.size, "horizontal", horiz.size)
 
 
